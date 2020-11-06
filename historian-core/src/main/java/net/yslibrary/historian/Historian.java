@@ -2,7 +2,6 @@ package net.yslibrary.historian;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
-import android.support.annotation.CheckResult;
 import android.util.Log;
 
 import net.yslibrary.historian.internal.DbOpenHelper;
@@ -15,6 +14,9 @@ import java.io.IOException;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+
+import androidx.annotation.CheckResult;
+import lombok.Getter;
 
 /**
  * Historian
@@ -32,6 +34,7 @@ public class Historian {
   final LogWriter logWriter;
   final Context context;
   final File directory;
+  @Getter
   final String dbName;
   final int size;
   final int logLevel;
@@ -50,7 +53,7 @@ public class Historian {
                     Callbacks callbacks) {
     this.context = context;
     this.directory = directory;
-    this.dbName = name;
+    dbName = name;
     this.size = size;
     this.logLevel = logLevel;
     this.debug = debug;
@@ -63,8 +66,9 @@ public class Historian {
       throw new HistorianFileException("Could not resolve the canonical path to the Historian DB file: " + directory.getAbsolutePath(), e);
     }
 
-    if (debug)
+    if (debug) {
       Log.d(TAG, String.format(Locale.ENGLISH, "backing database file will be created at: %s", dbOpenHelper.getDatabaseName()));
+    }
 
     executorService = Executors.newSingleThreadExecutor();
     logWriter = new LogWriter(dbOpenHelper, size);
@@ -85,7 +89,9 @@ public class Historian {
    * initialize
    */
   public void initialize() {
-    if (initialized) return;
+    if (initialized) {
+      return;
+    }
 
     dbOpenHelper.getWritableDatabase();
 
@@ -95,8 +101,12 @@ public class Historian {
   public void log(int priority, String tag, String message) {
     checkInitialized();
 
-    if (priority < logLevel) return;
-    if (message == null || message.length() == 0) return;
+    if (priority < logLevel) {
+      return;
+    }
+    if (message == null || message.length() == 0) {
+      return;
+    }
 
     executorService.execute(
         new LogWritingTask(
@@ -142,15 +152,6 @@ public class Historian {
     }
   }
 
-  /**
-   * Get database file name
-   *
-   * @return database file name
-   */
-  public String dbName() {
-    return dbName;
-  }
-
   SQLiteDatabase getDatabase() {
     checkInitialized();
     return dbOpenHelper.getReadableDatabase();
@@ -158,14 +159,18 @@ public class Historian {
 
   @SuppressWarnings("ResultOfMethodCallIgnored")
   private void createDirIfNeeded(File file) {
-    if (!file.exists()) file.mkdir();
+    if (!file.exists()) {
+      file.mkdir();
+    }
   }
 
   /**
    * throw if {@link Historian#initialize()} is not called.
    */
   private void checkInitialized() {
-    if (!initialized) throw new IllegalStateException("Historian#initialize is not called");
+    if (!initialized) {
+      throw new IllegalStateException("Historian#initialize is not called");
+    }
   }
 
 
@@ -230,7 +235,9 @@ public class Historian {
      */
     @CheckResult
     public Builder size(int size) {
-      if (size < 0) throw new IllegalArgumentException("size should be 0 or greater");
+      if (size < 0) {
+        throw new IllegalArgumentException("size should be 0 or greater");
+      }
       this.size = size;
       return this;
     }
@@ -309,7 +316,9 @@ public class Historian {
 
     @Override
     public void onFailure(Throwable throwable) {
-      if (debug) Log.e(TAG, "Something happened while trying to save a log", throwable);
+      if (debug) {
+        Log.e(TAG, "Something happened while trying to save a log", throwable);
+      }
     }
   }
 }

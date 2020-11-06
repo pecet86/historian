@@ -1,1 +1,3 @@
-include ':sample', ':historian-core', ':historian-tree'
+include ':historian-core'
+include ':historian-tree'
+include ':sample'

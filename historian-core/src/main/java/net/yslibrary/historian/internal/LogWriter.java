@@ -1,6 +1,5 @@
 package net.yslibrary.historian.internal;
 
-import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
 
 /**
@@ -18,24 +17,21 @@ public class LogWriter {
     this.size = size;
   }
 
-  public void log(final LogEntity log) {
-    dbOpenHelper.executeTransaction(new DbOpenHelper.Transaction() {
-      @Override
-      public void call(SQLiteDatabase db) {
+  public void log(LogEntity log) {
+    dbOpenHelper.executeTransaction(db -> {
 
-        // insert provided log
-        SQLiteStatement insertStatement = db.compileStatement(LogTable.INSERT);
-        insertStatement.bindString(1, log.priority);
-        insertStatement.bindString(2, log.tag == null ? "" : log.tag);
-        insertStatement.bindString(3, log.message);
-        insertStatement.bindLong(4, log.timestamp);
-        insertStatement.execute();
+      // insert provided log
+      SQLiteStatement insertStatement = db.compileStatement(LogTable.INSERT);
+      insertStatement.bindString(1, log.getPriority());
+      insertStatement.bindString(2, log.getTag() == null ? "" : log.getTag());
+      insertStatement.bindString(3, log.getMessage());
+      insertStatement.bindLong(4, log.getTimestamp());
+      insertStatement.execute();
 
-        // delete if row count exceeds provided size
-        SQLiteStatement deleteStatement = db.compileStatement(LogTable.DELETE_OLDER);
-        deleteStatement.bindLong(1, (long) size);
-        deleteStatement.execute();
-      }
+      // delete if row count exceeds provided size
+      SQLiteStatement deleteStatement = db.compileStatement(LogTable.DELETE_OLDER);
+      deleteStatement.bindLong(1, (long) size);
+      deleteStatement.execute();
     });
   }
 
@@ -43,11 +39,6 @@ public class LogWriter {
    * Clear logs in SQLite.
    */
   public void delete() {
-    dbOpenHelper.executeTransaction(new DbOpenHelper.Transaction() {
-      @Override
-      public void call(SQLiteDatabase db) {
-        db.delete(LogTable.NAME, null, new String[]{});
-      }
-    });
+    dbOpenHelper.executeTransaction(db -> db.delete(LogTable.NAME, null, new String[]{}));
   }
 }

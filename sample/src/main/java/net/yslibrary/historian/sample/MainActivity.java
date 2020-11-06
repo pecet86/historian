@@ -5,16 +5,12 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.ActivityCompat;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.yslibrary.historian.Historian;
 
@@ -25,8 +21,17 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.concurrent.atomic.AtomicLong;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import timber.log.Timber;
 
+/**
+ * Created by yshrsmz on 2017/01/21.
+ * Modification by pecet86 on 2020/11/06.
+ */
 public class MainActivity extends AppCompatActivity {
 
   AtomicLong counter = new AtomicLong();
@@ -35,28 +40,23 @@ public class MainActivity extends AppCompatActivity {
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-    fab.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View view) {
-        for (int i = 0, l = 100; i < 100; i++) {
-          Timber.i("test: %d", counter.getAndIncrement());
-        }
+    FloatingActionButton fab = findViewById(R.id.fab);
+    fab.setOnClickListener(view -> {
+      for (int i = 0, l = 100; i < 100; i++) {
+        Timber.i("test: %d", counter.getAndIncrement());
       }
+      Timber.tag("XXX").e(new RuntimeException("X"), "message %s", "s");
     });
 
     View exportButton = findViewById(R.id.export);
-    exportButton.setOnClickListener(new View.OnClickListener() {
-      @Override
-      public void onClick(View v) {
-        if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
-          export(MainActivity.this, App.getHistorian(MainActivity.this));
-        } else {
-          ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
-        }
+    exportButton.setOnClickListener(v -> {
+      if (ContextCompat.checkSelfPermission(MainActivity.this, Manifest.permission.WRITE_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED) {
+        export(MainActivity.this, App.getHistorian(MainActivity.this));
+      } else {
+        ActivityCompat.requestPermissions(MainActivity.this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 0);
       }
     });
   }
@@ -99,7 +99,7 @@ public class MainActivity extends AppCompatActivity {
       dir.mkdir();
     }
     String dbPath = historian.dbPath();
-    String exportPath = dir.getPath() + File.separator + historian.dbName();
+    String exportPath = dir.getPath() + File.separator + historian.getDbName();
 
     FileInputStream fis = null;
     OutputStream output = null;

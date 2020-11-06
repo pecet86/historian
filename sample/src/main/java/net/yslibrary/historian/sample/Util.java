@@ -4,8 +4,8 @@ import java.io.Closeable;
 
 /**
  * Created by yshrsmz on 17/02/14.
+ * Modification by pecet86 on 2020/11/06.
  */
-
 public class Util {
 
   private Util() {

@@ -4,22 +4,31 @@ apply from: project.file("gradle/metadata.gradle")
 
 buildscript {
   repositories {
+    mavenLocal()
     jcenter()
+    mavenCentral()
+    google()
+    maven { url "https://jitpack.io" }
   }
   dependencies {
-    classpath 'com.android.tools.build:gradle:2.3.2'
+    classpath 'com.android.tools.build:gradle:4.1.0'
 
     // NOTE: Do not place your application dependencies here; they belong
     // in the individual module build.gradle files
-    classpath 'com.novoda:bintray-release:0.4.0'
+    classpath 'com.github.panpf.bintray-publish:bintray-publish:1.0.0'
     classpath 'com.github.ben-manes:gradle-versions-plugin:0.13.0'
-    classpath 'org.jacoco:org.jacoco.core:0.7.7.201606060606'
+    classpath 'org.jacoco:org.jacoco.core:0.8.6'
+    classpath 'org.ajoberstar:gradle-git:1.7.2'
   }
 }
 
 allprojects {
   repositories {
+    mavenLocal()
     jcenter()
+    mavenCentral()
+    google()
+    maven { url "https://jitpack.io" }
   }
 }
 
@@ -31,33 +40,42 @@ task clean(type: Delete) {
   delete rootProject.buildDir
 }
 
-String shell(String command) {
-  def proc = ["sh", "-c", "cd ${project.rootDir} ; ${command}"].execute()
-  if (proc.waitFor() != 0) {
-    throw new RuntimeException("Failed to run: ${command}\n${proc.err.text}")
+apply plugin: 'org.ajoberstar.grgit'
+def tagName = "v" + versionName()
+def getStatus() {
+  def describe = grgit.describe()
+  def pattern = /^(.*)-([0-9]+)-(g[0-9a-z]+)$/
+  def tag = describe =~ pattern
+
+  if (tag.matches()) {
+    tag = tag[0][1];
+    def logs = grgit.log {
+      range(tag, 'HEAD')
+    }
+    if (!logs.isEmpty()) {
+      return logs
+          .collect { "Autor: ${it.author.name}; Data: ${it.getDate().format('yyyy-MM-dd HH:mm:ss')}; Opis:${it.fullMessage}" }
+          .asImmutable()
+          .toString()
+    } else {
+      return null
+    }
   } else {
-    def err = proc.err.text
-    if (err) {
-      System.err.println(err)
-    }
+    return null
   }
-  return proc.in.text;
 }
-
 task releng {
+  description = "Application release: $tagName"
   doLast {
-    def tag = "v" + versionName()
-    println "Release engineering for ${tag}"
-
-    def changes = shell "git status -s"
-    if (changes.trim()) {
-      throw new RuntimeException("There are changes not commited yet.\n${changes}")
+    def changes = getStatus()
+    if (changes == null) {
+      throw new RuntimeException("There are changes not commited yet.\n$changes")
     }
 
-    println "> git tag ${tag}"
-    shell "git tag ${tag}"
-    println "> git push origin ${tag}"
-    shell "git push origin ${tag}"
-    shell "git push origin master"
+    //add tag
+    grgit.tag.add {
+      name = tagName
+      message = "Release of $tagName"
+    }
   }
 }

@@ -1,13 +1,9 @@
 package net.yslibrary.historian;
 
 import android.content.Context;
-import android.database.sqlite.SQLiteDatabase;
-import android.database.sqlite.SQLiteException;
 
 import com.facebook.stetho.InspectorModulesProvider;
 import com.facebook.stetho.Stetho;
-import com.facebook.stetho.inspector.database.DatabaseConnectionProvider;
-import com.facebook.stetho.inspector.database.DatabaseFilesProvider;
 import com.facebook.stetho.inspector.database.SqliteDatabaseDriver;
 import com.facebook.stetho.inspector.protocol.ChromeDevtoolsDomain;
 
@@ -17,6 +13,7 @@ import java.util.List;
 
 /**
  * Created by yshrsmz on 2017/01/21.
+ * Modification by pecet86 on 2020/11/06.
  */
 public class HistorianInspectorModulesProvider implements InspectorModulesProvider {
 
@@ -30,21 +27,16 @@ public class HistorianInspectorModulesProvider implements InspectorModulesProvid
 
   @Override
   public Iterable<ChromeDevtoolsDomain> get() {
-    return new Stetho.DefaultInspectorModulesBuilder(context)
+    return new Stetho
+        .DefaultInspectorModulesBuilder(context)
         .provideDatabaseDriver(new SqliteDatabaseDriver(context,
-            new DatabaseFilesProvider() {
-              @Override
-              public List<File> getDatabaseFiles() {
-                List<File> list = new ArrayList<>();
-                list.add(new File(historian.dbPath()));
-                return list;
-              }
-            }, new DatabaseConnectionProvider() {
-          @Override
-          public SQLiteDatabase openDatabase(File file) throws SQLiteException {
-            return historian.getDatabase();
-          }
-        }))
+            () -> {
+              List<File> list = new ArrayList<>();
+              list.add(new File(historian.dbPath()));
+              return list;
+            },
+            file -> historian.getDatabase())
+        )
         .finish();
   }
 }

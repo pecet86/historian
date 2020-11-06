@@ -2,11 +2,10 @@ package net.yslibrary.historian.internal;
 
 import android.util.Log;
 
-public class Util {
+import lombok.experimental.UtilityClass;
 
-  private Util() {
-    // no-op
-  }
+@UtilityClass
+public class Util {
 
   public static String priorityString(int priority) {
     switch (priority) {

@@ -1,10 +1,10 @@
 ext.deps = [
-    appcompat  : 'com.android.support:appcompat-v7:25.1.1',
-    design     : 'com.android.support:design:25.1.1',
-    timber     : 'com.jakewharton.timber:timber:4.5.1',
-    stetho     : 'com.facebook.stetho:stetho:1.4.2',
-
-    espresso   : 'com.android.support:appcompat-v7:25.1.1',
-    junit      : 'junit:junit:4.12',
-    robolectric: 'org.robolectric:robolectric:3.2.2'
+    appcompat  : '1.2.0',
+    design     : '1.3.0-alpha03',
+    timber     : '4.7.1',
+    stetho     : '1.5.1',
+    espresso   : '1.2.0',
+    junit      : '4.13.1',
+    robolectric: '4.4',
+    lombok     : '1.18.16'
 ]

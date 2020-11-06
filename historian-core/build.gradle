@@ -1,27 +1,28 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.novoda.bintray-release'
-apply plugin: 'jacoco'
+apply plugin: 'com.github.panpf.bintray-publish'
+//apply plugin: 'jacoco'
 
 apply from: '../gradle/dependencies.gradle'
 
 // CI
-def isCi = "true".equals(System.getenv("CI"))
-def preDexEnabled = "true".equals(System.getProperty("pre-dex", "true"))
+def isCi = "true" == System.getenv("CI")
+def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25.0.2"
+  compileSdkVersion 30
+  buildToolsVersion '30.0.2'
 
   defaultConfig {
-    minSdkVersion 15
-    targetSdkVersion 25
+    minSdkVersion 26
+    targetSdkVersion 30
     versionCode 1
     versionName "1.0"
 
-    testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
   }
+
   buildTypes {
     debug {
       testCoverageEnabled true
@@ -37,6 +38,11 @@ android {
     preDexLibraries = preDexEnabled && !isCi
   }
 
+  compileOptions {
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
   testOptions {
     unitTests.all {
       jacoco {
@@ -47,17 +53,22 @@ android {
 }
 
 dependencies {
-  compile deps.appcompat
+  api "androidx.appcompat:appcompat:${deps.appcompat}"
 
-  androidTestCompile(deps.espresso, {
-    exclude group: 'com.android.support', module: 'support-annotations'
+  //noinspection AnnotationProcessorOnCompilePath
+  compileOnly "org.projectlombok:lombok:${deps.lombok}"
+  annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
+
+  androidTestImplementation("androidx.appcompat:appcompat:${deps.appcompat}", {
+    exclude group: 'androidx.annotation', module: 'annotation'
   })
 
-  testCompile deps.junit
-  testCompile deps.robolectric
+  testImplementation "junit:junit:${deps.junit}"
+  testImplementation "org.robolectric:robolectric:${deps.robolectric}"
 }
 
 publish {
+  userOrg = 'pecet86'
   artifactId = 'historian-core'
   desc = "a simple logger which saves logs to SQLite, to get better understanding of user's environment"
 
@@ -70,10 +81,11 @@ publish {
 }
 
 // A list of directories which should be included in coverage report
-def coverageSourceDirs = ['src/main/java']
+//def coverageSourceDirs = ['src/main/java']
 // A list of files which should be excluded from coverage report since they are generated and/or framework code
-def coverageExcludeFiles = ['**/R.class', '**/R$*.class', '**/com/android/**/*.*']
+//def coverageExcludeFiles = ['**/R.class', '**/R$*.class', '**/com/android/**/*.*']
 
+/*
 task jacocoTestReportDebug(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
   group = "Reporting"
   description = "Generate Jacoco coverage reports after running tests."
@@ -96,3 +108,4 @@ task jacocoTestReportDebug(type: JacocoReport, dependsOn: ['testDebugUnitTest'])
     println "jacoco html report has been generated to file://${reports.html.destination}/index.html"
   }
 }
+*/

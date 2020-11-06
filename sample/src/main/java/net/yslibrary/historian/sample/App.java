@@ -2,7 +2,6 @@ package net.yslibrary.historian.sample;
 
 import android.app.Application;
 import android.content.Context;
-import android.support.annotation.NonNull;
 
 import com.facebook.stetho.Stetho;
 
@@ -10,10 +9,12 @@ import net.yslibrary.historian.Historian;
 import net.yslibrary.historian.HistorianInspectorModulesProvider;
 import net.yslibrary.historian.tree.HistorianTree;
 
+import androidx.annotation.NonNull;
 import timber.log.Timber;
 
 /**
  * Created by yshrsmz on 17/01/20.
+ * Modification by pecet86 on 2020/11/06.
  */
 
 public class App extends Application {
@@ -32,8 +33,7 @@ public class App extends Application {
   public void onCreate() {
     super.onCreate();
 
-    historian = Historian.builder(this)
-        .build();
+    historian = Historian.builder(this).build();
     historian.initialize();
 
     Timber.plant(new Timber.DebugTree());
@@ -41,10 +41,12 @@ public class App extends Application {
 
     Timber.d(historian.dbPath());
 
-    Stetho.initialize(Stetho.newInitializerBuilder(this)
+    Stetho.initialize(Stetho
+        .newInitializerBuilder(this)
         .enableDumpapp(Stetho.defaultDumperPluginsProvider(this))
         .enableWebKitInspector(new HistorianInspectorModulesProvider(this, historian))
-        .build());
+        .build()
+    );
   }
 
   @Override
