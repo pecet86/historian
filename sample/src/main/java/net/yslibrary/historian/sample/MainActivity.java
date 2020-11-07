@@ -48,6 +48,9 @@ public class MainActivity extends AppCompatActivity {
       for (int i = 0, l = 100; i < 100; i++) {
         Timber.i("test: %d", counter.getAndIncrement());
       }
+
+      Timber.tag("XXX").e("message %s", "s");
+      Timber.tag("XXX").e(new RuntimeException("X"));
       Timber.tag("XXX").e(new RuntimeException("X"), "message %s", "s");
     });
 
@@ -98,13 +101,13 @@ public class MainActivity extends AppCompatActivity {
     if (!dir.exists()) {
       dir.mkdir();
     }
-    String dbPath = historian.dbPath();
+
+    File dbFile = historian.getDbFile();
     String exportPath = dir.getPath() + File.separator + historian.getDbName();
 
     FileInputStream fis = null;
     OutputStream output = null;
 
-    File dbFile = new File(dbPath);
     File file = new File(exportPath);
 
     // delete if exists

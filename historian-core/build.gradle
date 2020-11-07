@@ -59,6 +59,15 @@ dependencies {
   compileOnly "org.projectlombok:lombok:${deps.lombok}"
   annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
 
+  //android room
+  implementation "androidx.room:room-runtime:${deps.room}"
+  implementation "androidx.room:room-rxjava2:${deps.room}"
+  annotationProcessor "androidx.room:room-compiler:${deps.room}"
+
+  //RxJava
+  implementation 'io.reactivex.rxjava2:rxjava:2.2.20'
+  implementation 'io.reactivex.rxjava2:rxandroid:2.1.1'
+
   androidTestImplementation("androidx.appcompat:appcompat:${deps.appcompat}", {
     exclude group: 'androidx.annotation', module: 'annotation'
   })

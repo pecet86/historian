@@ -1,6 +1,8 @@
 package net.yslibrary.historian.internal;
 
 import net.yslibrary.historian.Historian;
+import net.yslibrary.historian.internal.dao.LogEntityDao;
+import net.yslibrary.historian.internal.entities.LogEntity;
 
 import lombok.AllArgsConstructor;
 
@@ -12,14 +14,13 @@ import lombok.AllArgsConstructor;
 public class LogWritingTask implements Runnable {
 
   private final Historian.Callbacks callbacks;
-  private final LogWriter logWriter;
+  private final LogEntityDao dao;
   private final LogEntity log;
 
   @Override
   public void run() {
-
     try {
-      logWriter.log(log);
+      dao.insertSync(log);
 
       callbacks.onSuccess();
     } catch (Throwable throwable) {
