@@ -4,6 +4,11 @@ import android.util.Log;
 
 import androidx.room.TypeConverter;
 
+/**
+ * Class PriorityType
+ *
+ * @author pecet86 - created
+ */
 public enum PriorityType {
   UNKNOWN, VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT;
 

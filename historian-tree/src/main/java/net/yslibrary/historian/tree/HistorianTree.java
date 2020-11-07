@@ -7,9 +7,10 @@ import lombok.RequiredArgsConstructor;
 import timber.log.Timber;
 
 /**
- * Created by yshrsmz on 2017/01/21.
+ * Class HistorianTree
+ *
+ * @author yshrsmz - created
  */
-
 @RequiredArgsConstructor(access = AccessLevel.PRIVATE)
 public class HistorianTree extends Timber.Tree {
 

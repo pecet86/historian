@@ -8,9 +8,8 @@ import android.os.Environment;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.Toast;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import net.yslibrary.historian.Historian;
 
@@ -26,6 +25,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
+import io.reactivex.Completable;
 import timber.log.Timber;
 
 /**
@@ -43,15 +43,29 @@ public class MainActivity extends AppCompatActivity {
     Toolbar toolbar = findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    FloatingActionButton fab = findViewById(R.id.fab);
-    fab.setOnClickListener(view -> {
+    Button testSimple = findViewById(R.id.test_simple);
+    testSimple.setOnClickListener(view -> {
       for (int i = 0, l = 100; i < 100; i++) {
         Timber.i("test: %d", counter.getAndIncrement());
       }
 
       Timber.tag("XXX").e("message %s", "s");
+    });
+
+    Button testException = findViewById(R.id.test_exception);
+    testException.setOnClickListener(view -> {
       Timber.tag("XXX").e(new RuntimeException("X"));
       Timber.tag("XXX").e(new RuntimeException("X"), "message %s", "s");
+    });
+
+    Button testGloablException = findViewById(R.id.test_gloabl_exception);
+    testGloablException.setOnClickListener(view -> {
+      throw new RuntimeException("X");
+    });
+
+    Button testRxjavaException = findViewById(R.id.test_rxjava_exception);
+    testRxjavaException.setOnClickListener(view -> {
+      Completable.error(new RuntimeException("X")).subscribe();
     });
 
     View exportButton = findViewById(R.id.export);

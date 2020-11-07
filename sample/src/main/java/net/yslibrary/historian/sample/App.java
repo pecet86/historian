@@ -3,10 +3,11 @@ package net.yslibrary.historian.sample;
 import android.app.Application;
 import android.content.Context;
 
-import com.facebook.stetho.Stetho;
-
 import net.yslibrary.historian.Historian;
 import net.yslibrary.historian.tree.HistorianTree;
+import net.yslibrary.historian.uncaught_handler.CrashConfig;
+import net.yslibrary.historian.uncaught_handler.HistorianUncaughtExceptionHandler;
+import net.yslibrary.historian.uncaught_rxjava2.HistorianRxJavaExceptionHandler;
 
 import androidx.annotation.NonNull;
 import timber.log.Timber;
@@ -32,12 +33,18 @@ public class App extends Application {
   public void onCreate() {
     super.onCreate();
 
-    historian = Historian.builder(this).build();
+    historian = Historian
+        .builder(this)
+        .build();
+
+    HistorianUncaughtExceptionHandler.install(this, historian,
+        new CrashConfig()
+            .withRestartActivityClass(MainActivity.class)
+    );
+    HistorianRxJavaExceptionHandler.install(this, historian);
 
     Timber.plant(new Timber.DebugTree());
     Timber.plant(HistorianTree.with(historian));
-
-    Stetho.initializeWithDefaults(this);
   }
 
   @Override

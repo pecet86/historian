@@ -7,5 +7,8 @@ ext.deps = [
     junit      : '4.13.1',
     robolectric: '4.4',
     lombok     : '1.18.16',
-    room       : '2.2.5'
+    room       : '2.2.5',
+    rxjava     : '2.2.20',
+    rxandroid  : '2.1.1',
+    annotation : '1.1.0',
 ]

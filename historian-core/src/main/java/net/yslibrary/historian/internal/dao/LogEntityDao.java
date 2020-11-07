@@ -13,9 +13,11 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 /**
- * Entity class representing log
+ * Class LogEntityDao
+ * DAO describing operations on a database table [{@link LogEntityDao#TABLE}]
+ *
+ * @author pecet86 - created
  */
-
 @Dao
 public abstract class LogEntityDao {
 

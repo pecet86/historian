@@ -1,3 +1,5 @@
 include ':historian-core'
 include ':historian-tree'
+include ':historian-uncaught-handler'
+include ':historian-uncaught-rxjava2'
 include ':sample'

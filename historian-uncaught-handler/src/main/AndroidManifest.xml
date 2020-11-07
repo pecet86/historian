@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.yslibrary.historian.uncaught_handler">
+
+  <application
+      android:allowBackup="true"
+      android:label="@string/app_name"
+      android:supportsRtl="true">
+    <activity
+        android:name=".activity.UncaughtActivity"
+        android:noHistory="true"
+        android:theme="@style/AppTheme.NoTitleBar"
+        android:excludeFromRecents="true"
+        android:process=":error_activity" />
+    <!--<provider
+        android:name=".provider.CrashInitProvider"
+        android:authorities="${crash_init_authority}"
+        android:exported="false"
+        android:initOrder="101" />-->
+  </application>
+</manifest>

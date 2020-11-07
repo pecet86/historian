@@ -15,9 +15,11 @@ Historian is distributed via jCenter. [![Bintray](https://img.shields.io/bintray
 
 ```gradle
 dependencies {
-  compile 'net.yslibrary.historian:historian-core:LATEST_LIBRARY_VERSION'
-  compile 'net.yslibrary.historian:historian-tree:LATEST_LIBRARY_VERSION'
-  compile 'com.jakewharton.timber:timber:4.5.1'
+  implementation 'net.yslibrary.historian:historian-core:LATEST_LIBRARY_VERSION'
+  implementation 'net.yslibrary.historian:historian-tree:LATEST_LIBRARY_VERSION' //connect to timber
+  implementation 'net.yslibrary.historian:historian-uncaught-handler:LATEST_LIBRARY_VERSION' //crash activity
+  implementation 'net.yslibrary.historian:historian-uncaught-rxjava2:LATEST_LIBRARY_VERSION' //RaJava2 global error
+  implementation 'com.jakewharton.timber:timber:4.5.1'
 }
 ```
 
@@ -30,49 +32,34 @@ class App extends Application {
 
     @Override
     public void onCreate() {
-        historian = Historian.builder(context)
-            // db name. defaults to "log.db"
-            .name("log.db")
-            // a directory where the db file will be saved. defaults to `context.getFiles()`.
-            // The directory will be created if it does not exist.
-            .directory(new File(Environment.getExternalStorageDirectory(), "somedir"))
-            // max number of logs stored in db. defaults to 500
-            .size(500)
-            // log level to save
-            .logLevel(Log.INFO)
-            .debug(true)
+        super.onCreate();
+
+        historian = Historian
+            .builder(this)
             .build();
 
-        // initialize historian
-        historian.initialize();
+        HistorianUncaughtExceptionHandler.install(this, historian,
+            new CrashConfig()
+                .withRestartActivityClass(MainActivity.class)
+        );
+        HistorianRxJavaExceptionHandler.install(this, historian);
 
+        Timber.plant(new Timber.DebugTree());
         Timber.plant(HistorianTree.with(historian));
-
-        // delete all saved logs
-        historian.delete();
-
-        // provide db path in Uri
-        historian.dbPath();
     }
 }
 ```
 
 ## Table definition
 
-```sql
-CREATE TABLE log(
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
-  priority TEXT NOT NULL,
-  tag TEXT NOT NULL,
-  message TEXT NOT NULL,
-  created_at INTEGER NOT NULL);
-```
+use [Android Room](https://developer.android.com/topic/libraries/architecture/room)
 
 
 ## License
 
 ```
 Copyright 2017 Shimizu Yasuhiro (yshrsmz)
+Copyright 2020 Paweł Cal (pecet86)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.

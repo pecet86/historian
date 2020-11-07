@@ -7,9 +7,12 @@ import net.yslibrary.historian.internal.entities.LogEntity;
 import lombok.AllArgsConstructor;
 
 /**
+ * Class LogWritingTask
  * Runnable implementation writing logs and executing callbacks
+ *
+ * @author yshrsmz - created
+ * @author pecet86 - modification
  */
-
 @AllArgsConstructor
 public class LogWritingTask implements Runnable {
 

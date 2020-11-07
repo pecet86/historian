@@ -10,6 +10,11 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
+/**
+ * Class LogsDatabase
+ *
+ * @author pecet86 - created
+ */
 @Database(
     entities = {
         LogEntity.class,

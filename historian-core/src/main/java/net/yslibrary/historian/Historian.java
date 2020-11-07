@@ -23,9 +23,11 @@ import static net.yslibrary.historian.internal.Util.LOG_LEVEL;
 import static net.yslibrary.historian.internal.Util.getDatabasesDir;
 
 /**
- * Historian
+ * Class HistorianTree
+ *
+ * @author yshrsmz - created
+ * @author pecet86 - modification
  */
-
 public class Historian {
 
   private static final String TAG = Historian.class.getSimpleName();
@@ -43,7 +45,7 @@ public class Historian {
   private final ExecutorService executorService;
 
   private Historian(Context context, String dbName, int logLevel, boolean debug, Callbacks callbacks) {
-    this.context = context;
+    this.context = context.getApplicationContext();
     this.dbName = dbName;
     this.logLevel = logLevel;
     this.debug = debug;
@@ -88,6 +90,11 @@ public class Historian {
     ));
   }
 
+  /**
+   * {@link net.yslibrary.historian.internal.dao.SystemDao#checkpointe}
+   *
+   * @return
+   */
   public Completable checkpointe() {
     return database
         .systemDao()
@@ -97,7 +104,9 @@ public class Historian {
   }
 
   /**
-   * delete cache
+   * Wyczyść bazę danych
+   *
+   * @return
    */
   public Completable clear() {
     return database
@@ -106,6 +115,11 @@ public class Historian {
         .subscribeOn(Schedulers.io());
   }
 
+  /**
+   * Pobranie pliku bazy danych
+   *
+   * @return
+   */
   public File getDbFile() {
     File databases = getDatabasesDir(context);
     return new File(databases, dbName);

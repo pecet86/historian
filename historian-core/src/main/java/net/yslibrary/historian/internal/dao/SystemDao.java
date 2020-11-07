@@ -9,6 +9,12 @@ import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+/**
+ * Class SystemDao
+ * DAO that allows you to perform system operations on the database
+ *
+ * @author pecet86 - created
+ */
 @Dao
 public abstract class SystemDao {
 
@@ -16,7 +22,7 @@ public abstract class SystemDao {
   protected abstract int pragma(SupportSQLiteQuery supportSQLiteQuery);
 
   /**
-   * Wykonanie przeniesienia plikó tymczasowych do głownego pliku bazy
+   * Performing the transfer of temporary files to the main database file
    *
    * @return liczba
    */
@@ -28,7 +34,7 @@ public abstract class SystemDao {
   }
 
   /**
-   * Wykonanie przeniesienia plikó tymczasowych do głownego pliku bazy
+   * Performing the transfer of temporary files to the main database file
    *
    * @return liczba
    */

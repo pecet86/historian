@@ -32,13 +32,9 @@ android {
 dependencies {
   implementation "androidx.appcompat:appcompat:${deps.appcompat}"
   implementation "com.google.android.material:material:${deps.design}"
-  implementation "com.facebook.stetho:stetho:${deps.stetho}"
-  implementation "com.jakewharton.timber:timber:${deps.timber}"
-  implementation project(':historian-core')
-  implementation project(':historian-tree')
 
-  androidTestImplementation("androidx.appcompat:appcompat:${deps.appcompat}", {
-    exclude group: 'androidx.annotation', module: 'annotation'
-  })
-  testImplementation "junit:junit:${deps.junit}"
+  //implementation project(':historian-core')
+  implementation project(':historian-tree')
+  //implementation project(':historian-uncaught-handler')
+  implementation project(':historian-uncaught-rxjava2')
 }

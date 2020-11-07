@@ -15,10 +15,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+
 /**
  * Entity class representing log
+ *
+ * @author yshrsmz - created
+ * @author pecet86 - modification
  */
-
 @Setter
 @Getter
 @NoArgsConstructor

@@ -29,8 +29,11 @@ android {
 }
 
 dependencies {
+  implementation "androidx.appcompat:appcompat:${deps.appcompat}"
+
   api project(':historian-core')
-  api "com.jakewharton.timber:timber:${deps.timber}"
+
+  implementation "androidx.annotation:annotation:${deps.annotation}"
 
   //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:${deps.lombok}"
@@ -39,8 +42,8 @@ dependencies {
 
 publish {
   userOrg = 'pecet86'
-  artifactId = 'historian-tree'
-  desc = 'Timber(Logging library for Android) Tree implementation for Historian'
+  artifactId = 'historian-uncaught-handler'
+  desc = 'UncaughtExceptionHandler implementation for Historian'
 
   def metadata = project.rootProject.ext.metadata
   groupId = metadata.groupId
