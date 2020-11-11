@@ -1,9 +1,10 @@
 <resources>
-  <string name="app_name">HistorianUncaughtExceptionHandlerLibrary</string>
-  <string name="crash_text">D\'oh! Its Crash..</string>
-  <string name="details_button_text">Details</string>
-  <string name="close_app_button_text">Close</string>
-  <string name="restart_app_button_text">Restart</string>
-  <string name="details_dialog_title">Reason</string>
-  <string name="details_dialog_button_text">CLOSE</string>
+  <string name="historian_app_name">HistorianUncaughtExceptionHandlerLibrary</string>
+  <string name="historian_crash_text">D\'oh! Its Crash..</string>
+  <string name="historian_details_button_text">Details</string>
+  <string name="historian_open_button_text">Historian</string>
+  <string name="historian_close_app_button_text">Close</string>
+  <string name="historian_restart_app_button_text">Restart</string>
+  <string name="historian_details_dialog_title">Reason</string>
+  <string name="historian_details_dialog_button_text">CLOSE</string>
 </resources>

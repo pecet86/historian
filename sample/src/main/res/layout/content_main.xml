@@ -15,10 +15,10 @@
     android:orientation="vertical">
 
   <Button
-      android:id="@+id/export"
+      android:id="@+id/launch_directly"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="EXPORT DATABASE" />
+      android:text="Launch Historian directly" />
 
   <Button
       android:id="@+id/test_simple"

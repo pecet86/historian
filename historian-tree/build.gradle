@@ -1,18 +1,20 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.github.panpf.bintray-publish'
 
-apply from: '../gradle/dependencies.gradle'
+apply from: "$rootDir/gradle/dependencies.gradle"
+apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
-  compileSdkVersion 30
-  buildToolsVersion '30.0.2'
+  resourcePrefix config.resourcePrefix
+
+  compileSdkVersion config.compileSdkVersion
+  buildToolsVersion config.buildToolsVersion
 
   defaultConfig {
-    minSdkVersion 26
-    targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
+    minSdkVersion config.minSdkVersion
+    targetSdkVersion config.targetSdkVersion
+    versionCode config.versionCode
+    versionName versionName()
   }
 
   buildTypes {
@@ -35,17 +37,4 @@ dependencies {
   //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:${deps.lombok}"
   annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
-}
-
-publish {
-  userOrg = 'pecet86'
-  artifactId = 'historian-tree'
-  desc = 'Timber(Logging library for Android) Tree implementation for Historian'
-
-  def metadata = project.rootProject.ext.metadata
-  groupId = metadata.groupId
-  publishVersion = metadata.version
-  website = metadata.website
-  repository = metadata.repository
-  licences = metadata.licences
 }

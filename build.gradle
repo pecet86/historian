@@ -1,6 +1,5 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 apply from: project.file("gradle/version/version.gradle")
-apply from: project.file("gradle/metadata.gradle")
 
 buildscript {
   repositories {
@@ -32,16 +31,13 @@ allprojects {
   }
 }
 
-ext {
-  metadata.version = ext.versionName()
-}
-
 task clean(type: Delete) {
   delete rootProject.buildDir
 }
 
 apply plugin: 'org.ajoberstar.grgit'
 def tagName = "v" + versionName()
+
 def getStatus() {
   def describe = grgit.describe()
   def pattern = /^(.*)-([0-9]+)-(g[0-9a-z]+)$/
@@ -64,6 +60,7 @@ def getStatus() {
     return null
   }
 }
+
 task releng {
   description = "Application release: $tagName"
   doLast {

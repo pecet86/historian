@@ -1,31 +1,57 @@
+buildscript {
+  repositories {
+    mavenLocal()
+    jcenter()
+    mavenCentral()
+    google()
+    maven { url "https://jitpack.io" }
+    maven { url 'https://plugins.gradle.org/m2/' }
+  }
+  dependencies {
+    classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.1"
+  }
+}
+
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.github.panpf.bintray-publish'
-//apply plugin: 'jacoco'
+apply plugin: "androidx.navigation.safeargs"
 
-apply from: '../gradle/dependencies.gradle'
+apply from: "$rootDir/gradle/dependencies.gradle"
+apply from: "$rootDir/gradle/configuration.gradle"
 
 // CI
 def isCi = "true" == System.getenv("CI")
 def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
-  compileSdkVersion 30
-  buildToolsVersion '30.0.2'
+  resourcePrefix config.resourcePrefix
+
+  compileSdkVersion config.compileSdkVersion
+  buildToolsVersion config.buildToolsVersion
 
   defaultConfig {
-    minSdkVersion 26
-    targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
+    minSdkVersion config.minSdkVersion
+    targetSdkVersion config.targetSdkVersion
+    versionCode config.versionCode
+    versionName versionName()
 
-    //testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    def package_name = "net.yslibrary.historian"
+    def filesAuthorityValue = package_name + '.files'
+    def taskAffinityValue = package_name + '.task'
+    manifestPlaceholders = [
+        files_authority: filesAuthorityValue,
+        task_affinity  : taskAffinityValue
+    ]
 
+    buildConfigField("String", "FILES_AUTHORITY", "\"${filesAuthorityValue}\"")
+    buildConfigField("String", "TASK_AFFINITY", "\"${taskAffinityValue}\"")
+    buildConfigField("Boolean", "isOp", "true")
+    buildConfigField("Boolean", "notification", "true")
   }
 
   buildTypes {
     debug {
-      testCoverageEnabled true
+
     }
     release {
       minifyEnabled false
@@ -43,16 +69,28 @@ android {
     targetCompatibility = JavaVersion.VERSION_1_8
   }
 
-  testOptions {
-    unitTests.all {
-      jacoco {
-        includeNoLocationClasses = true
-      }
-    }
+  buildFeatures {
+    dataBinding = true
+    viewBinding = true
   }
 }
 
 dependencies {
+  implementation 'androidx.recyclerview:recyclerview:1.1.0'
+  implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
+  implementation "com.squareup.okio:okio:2.9.0"
+  implementation "com.google.android.material:material:${deps.material}"
+  implementation "androidx.annotation:annotation:${deps.annotation}"
+
+  //lifecycle
+  implementation "androidx.lifecycle:lifecycle-extensions:${deps.lifecycle}"
+  implementation "androidx.lifecycle:lifecycle-viewmodel:${deps.lifecycle}"
+  implementation "androidx.lifecycle:lifecycle-livedata:${deps.lifecycle}"
+
+  //navigation
+  implementation "androidx.navigation:navigation-fragment:${deps.navigation}"
+  implementation "androidx.navigation:navigation-ui:${deps.navigation}"
+
   //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:${deps.lombok}"
   annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
@@ -65,54 +103,9 @@ dependencies {
   //RxJava
   implementation "io.reactivex.rxjava2:rxjava:${deps.rxjava}"
   implementation "io.reactivex.rxjava2:rxandroid:${deps.rxandroid}"
+  implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.1'
 
-  androidTestImplementation("androidx.appcompat:appcompat:${deps.appcompat}", {
-    exclude group: 'androidx.annotation', module: 'annotation'
-  })
-
-  testImplementation "junit:junit:${deps.junit}"
-  testImplementation "org.robolectric:robolectric:${deps.robolectric}"
+  //navigation
+  implementation "androidx.navigation:navigation-fragment:${deps.navigation}"
+  implementation "androidx.navigation:navigation-ui:${deps.navigation}"
 }
-
-publish {
-  userOrg = 'pecet86'
-  artifactId = 'historian-core'
-  desc = "a simple logger which saves logs to SQLite, to get better understanding of user's environment"
-
-  def metadata = project.rootProject.ext.metadata
-  groupId = metadata.groupId
-  publishVersion = metadata.version
-  website = metadata.website
-  repository = metadata.repository
-  licences = metadata.licences
-}
-
-// A list of directories which should be included in coverage report
-//def coverageSourceDirs = ['src/main/java']
-// A list of files which should be excluded from coverage report since they are generated and/or framework code
-//def coverageExcludeFiles = ['**/R.class', '**/R$*.class', '**/com/android/**/*.*']
-
-/*
-task jacocoTestReportDebug(type: JacocoReport, dependsOn: ['testDebugUnitTest']) {
-  group = "Reporting"
-  description = "Generate Jacoco coverage reports after running tests."
-  reports {
-    xml.enabled true
-    html.enabled true
-    csv.enabled false
-    xml.destination "${buildDir}/reports/jacoco/test/jacocoTestReportDebug.xml"
-    html.destination "${buildDir}/reports/coverage/debug"
-    classDirectories = files(
-        fileTree(
-            dir: "${buildDir}/intermediates/classes/debug",
-            exclude: coverageExcludeFiles))
-  }
-  sourceDirectories = files(coverageSourceDirs)
-  executionData = files "${buildDir}/jacoco/testDebugUnitTest.exec"
-
-  doLast {
-    println "jacoco xml report has been generated to file://${buildDir}/reports/jacoco/test/jacocoTestReportDebug.xml"
-    println "jacoco html report has been generated to file://${reports.html.destination}/index.html"
-  }
-}
-*/

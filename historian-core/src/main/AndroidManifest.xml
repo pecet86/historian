@@ -1,1 +1,37 @@
-<manifest package="net.yslibrary.historian"></manifest>
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="net.yslibrary.historian">
+
+  <queries>
+    <intent>
+      <action android:name="android.intent.action.CREATE_DOCUMENT" />
+      <data android:mimeType="*/*" />
+    </intent>
+  </queries>
+
+  <application>
+    <activity
+        android:name=".internal.ui.activities.MainActivity"
+        android:label="@string/historian_name"
+        android:launchMode="singleTask"
+        android:taskAffinity="${task_affinity}"
+        android:theme="@style/Historian.Theme">
+      <nav-graph android:value="@navigation/historian_nav_graph" />
+    </activity>
+
+    <service
+        android:name=".internal.support.services.ClearDatabaseService"
+        android:permission="android.permission.BIND_JOB_SERVICE"
+        android:exported="false" />
+
+    <provider
+        android:name=".internal.support.providers.HistorianFileProvider"
+        android:authorities="${files_authority}"
+        android:exported="false"
+        android:grantUriPermissions="true">
+      <meta-data
+          android:name="android.support.FILE_PROVIDER_PATHS"
+          android:resource="@xml/historian_provider_paths" />
+    </provider>
+  </application>
+</manifest>

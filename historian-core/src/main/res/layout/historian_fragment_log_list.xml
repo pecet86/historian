@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+  <data>
+
+    <import type="android.view.View" />
+
+    <variable
+        name="viewModel"
+        type="net.yslibrary.historian.internal.ui.view_models.LogListViewModel" />
+  </data>
+
+  <FrameLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent">
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/list"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/historian_list_item_log"
+        android:visibility="@{viewModel.showTutorial ? View.GONE : View.VISIBLE}"
+        tools:visibility="gone" />
+
+    <LinearLayout
+        android:id="@+id/tutorialView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="@dimen/historian_doub_grid"
+        android:gravity="center_vertical"
+        android:orientation="vertical"
+        android:visibility="@{viewModel.showTutorial ? View.VISIBLE : View.GONE}"
+        tools:visibility="visible">
+
+      <TextView
+          style="@style/Historian.TextAppearance.ListItem"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:text="@string/historian_setup" />
+
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/historian_base_grid"
+          android:gravity="center_vertical"
+          android:text="@string/historian_throwable_tutorial" />
+
+      <TextView
+          android:id="@+id/tutorialLink"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="@dimen/historian_base_grid"
+          android:gravity="center_vertical"
+          android:text="@string/historian_check_readme" />
+    </LinearLayout>
+  </FrameLayout>
+</layout>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="historian_color_primary">#81d4fa</color>
+  <color name="historian_color_primary_variant">#121212</color>
+  <color name="historian_color_background">#121212</color>
+  <color name="historian_color_surface">#121212</color>
+  <color name="historian_color_secondary">#59CC94</color>
+  <color name="historian_color_on_primary">#000000</color>
+  <color name="historian_color_on_secondary">#000000</color>
+  <color name="historian_color_on_background">#ffffff</color>
+  <color name="historian_color_on_surface">#ffffff</color>
+  <color name="historian_color_on_error">#000000</color>
+
+  <color name="historian_status_log">#e57373</color>
+
+</resources>

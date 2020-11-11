@@ -2,7 +2,6 @@ Historian
 ===
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Historian-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5329)
-[![CircleCI](https://circleci.com/gh/yshrsmz/historian.svg?style=svg)](https://circleci.com/gh/yshrsmz/historian)
 [![codecov](https://codecov.io/gh/yshrsmz/historian/branch/master/graph/badge.svg)](https://codecov.io/gh/yshrsmz/historian)
 
 Historian is a custom [Timber](https://github.com/JakeWharton/timber).Tree implementation that saves logs to SQLite, so that you can see/download the SQLite file later for debugging.
@@ -11,15 +10,25 @@ This library is primarily made to help debugging crash in consumers' devices.
 
 ## Installation
 
-Historian is distributed via jCenter. [![Bintray](https://img.shields.io/bintray/v/yshrsmz/maven/historian-core.svg)](https://bintray.com/yshrsmz/maven/historian-core/view)
+Historian is distributed via [jitpack.io](https://jitpack.io), VERSION **2.0.0**.
 
 ```gradle
+repositories {
+    maven { url "https://jitpack.io" }
+}
 dependencies {
   implementation 'net.yslibrary.historian:historian-core:LATEST_LIBRARY_VERSION'
   implementation 'net.yslibrary.historian:historian-tree:LATEST_LIBRARY_VERSION' //connect to timber
   implementation 'net.yslibrary.historian:historian-uncaught-handler:LATEST_LIBRARY_VERSION' //crash activity
   implementation 'net.yslibrary.historian:historian-uncaught-rxjava2:LATEST_LIBRARY_VERSION' //RaJava2 global error
   implementation 'com.jakewharton.timber:timber:4.5.1'
+}
+
+android {
+  buildFeatures {
+    dataBinding = true
+    viewBinding = true
+  }
 }
 ```
 
@@ -28,31 +37,71 @@ dependencies {
 ```java
 class App extends Application {
 
-    Historian historian;
+    private Historian historian;
 
-    @Override
-    public void onCreate() {
+      @Override
+      public void onCreate() {
         super.onCreate();
 
         historian = Historian
             .builder(this)
+            .debug(true)
+            .logLevel(Log.INFO) //minimal log lever
+            .notification(true) //show notification
+            .retentionPeriod(Period.ONE_WEEK) //when delete old
+            .callbacks(new Historian.Callbacks() { //added
+              @Override
+              public void onSuccess() {
+                //is added to datebase
+              }
+
+              @Override
+              public void onFailure(Throwable throwable) {
+                //is error to datebase
+              }
+            })
             .build();
 
+        //CrashActivity
         HistorianUncaughtExceptionHandler.install(this, historian,
             new CrashConfig()
+                .withRestartActivityEnable(true)
+                .withRestartAppButtonText(R.string.historian_restart_app_button_text)
+
+                .withCloseActivityEnable(true)
+                .withCloseAppButtonText(R.string.historian_close_app_button_text)
+
+                .withCrashText(R.string.historian_crash_text)
+                .withCrashTextColor(R.color.historian_crash_text)
+
+                .withDetailsButtonText(R.string.historian_details_button_text)
+                .withDetailsDialogTitle(R.string.historian_details_dialog_title)
+                .withDetailsDialogButtonText(R.string.historian_details_dialog_button_text)
+
+                .withImagePath(R.drawable.historian_cow_error)
+                .withBackgorundColor(R.color.historian_backgorund)
+
                 .withRestartActivityClass(MainActivity.class)
         );
-        HistorianRxJavaExceptionHandler.install(this, historian);
+
+        //Global onError
+        HistorianRxJavaExceptionHandler.install(
+            HistorianUncaughtExceptionHandler.getInstance()
+        );
 
         Timber.plant(new Timber.DebugTree());
+        //install to Timber
         Timber.plant(HistorianTree.with(historian));
     }
 }
 ```
 
-## Table definition
+## Libraries definition
 
 use [Android Room](https://developer.android.com/topic/libraries/architecture/room)
+use [ReactiveX](https://github.com/ReactiveX/RxJava/tree/2.x)
+use [Timber](https://github.com/JakeWharton/timber)
+use [Okio](https://github.com/square/okio)
 
 
 ## License

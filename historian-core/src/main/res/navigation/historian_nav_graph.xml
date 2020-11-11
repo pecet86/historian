@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/logListFragment"
+    android:id="@+id/main">
+
+  <fragment
+      android:id="@+id/logListFragment"
+      android:name="net.yslibrary.historian.internal.ui.fragments.LogListFragment"
+      android:label="@string/historian_list_name"
+      tools:layout="@layout/historian_fragment_log_list">
+    <action
+        android:id="@+id/action_logListFragment_to_logFragment"
+        app:destination="@id/logFragment" />
+  </fragment>
+  <fragment
+      android:id="@+id/logFragment"
+      android:name="net.yslibrary.historian.internal.ui.fragments.LogFragment"
+      android:label="Single element"
+      tools:layout="@layout/historian_fragment_log">
+    <argument
+        android:name="id"
+        app:argType="integer"
+        android:defaultValue="-1" />
+    <argument
+        android:name="title"
+        app:argType="string"
+        app:nullable="true" />
+  </fragment>
+  <action
+      android:id="@+id/action_global_logListFragment"
+      app:destination="@id/logListFragment" />
+
+</navigation>

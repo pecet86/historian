@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="historian_name">Historian</string>
+  <string name="historian_list_name">Logs</string>
+  <string name="historian_clear">Clear</string>
+  <string name="historian_delete">Delete</string>
+  <string name="historian_cancel">Cancel</string>
+  <string name="historian_share">Share</string>
+  <string name="historian_export">Export</string>
+  <string name="historian_export_empty_text">Nothing to export</string>
+  <string name="historian_export_no_file">Failed to create file for export</string>
+  <string name="historian_share_as_text">Share as text</string>
+  <string name="historian_share_as_file">Share as file</string>
+  <string name="historian_save">Save body to file</string>
+  <string name="historian_save_failed_to_open_document">Failed to open file chooser</string>
+  <string name="historian_file_saved">File saved successfully!</string>
+  <string name="historian_file_not_saved">Failed to save file</string>
+  <string name="historian_search">Search</string>
+  <string name="historian_throwable_tutorial">This displays logs (e.g. throwables) recorded with the Historian.log method. Call this method when an error is thrown to check your stacktrace live.</string>
+  <string name="historian_throwable_notification_category">Chucker throwables</string>
+  <string name="historian_share_log_title">Share log details</string>
+  <string name="historian_share_log_subject">Log details</string>
+  <string name="historian_share_log_content"><![CDATA[Date: %1$s\nException: %2$s\nTag: %3$s\nMessage: %4$s\n\n%5$s]]></string>
+  <string name="historian_clear_logs_confirmation">Do you want to clear complete logs history?</string>
+  <string name="historian_export_logs_confirmation">Do you want to export logs history?</string>
+  <string name="historian_export_log_confirmation">Do you want to export log?</string>
+  <string name="historian_clear_log_confirmation">Do you want to delete log?</string>
+  <string name="historian_export_separator">==================</string>
+  <string name="historian_export_prefix">/* Export Start */</string>
+  <string name="historian_export_postfix">/*  Export End  */</string>
+  <string name="historian_check_readme"><a href="https://github.com/pecet86/historian/blob/master/README.md#installation">Check the setup instructions on GitHub</a></string>
+  <string name="historian_setup">Setup</string>
+
+  <string name="historian_share_priority">Priority</string>
+  <string name="historian_share_tag">Tag</string>
+  <string name="historian_share_class">Class</string>
+  <string name="historian_share_message">Message</string>
+  <string name="historian_share_content">Content</string>
+  <string name="historian_share_all_logs_title">Share logs</string>
+  <string name="historian_share_all_logs_subject">All logs</string>
+  <string name="historian_wrong_walue">Wrong value</string>
+  <string name="historian_not_found">Not found value</string>
+</resources>

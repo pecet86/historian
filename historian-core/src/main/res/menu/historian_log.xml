@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+  <item
+      android:icon="@drawable/historian_ic_share_white"
+      android:title="@string/historian_share"
+      app:showAsAction="ifRoom">
+    <menu>
+      <group>
+        <item
+            android:id="@+id/share_text"
+            android:title="@string/historian_share_as_text" />
+        <item
+            android:id="@+id/share_file"
+            android:title="@string/historian_share_as_file" />
+      </group>
+    </menu>
+  </item>
+  <item
+      android:icon="@drawable/historian_ic_save_white"
+      android:title="@string/historian_save"
+      android:id="@+id/save_body"
+      app:showAsAction="ifRoom">
+  </item>
+</menu>

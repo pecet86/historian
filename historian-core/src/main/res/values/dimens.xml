@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <dimen name="historian_base_grid">8dp</dimen>
+  <dimen name="historian_doub_grid">16dp</dimen>
+
+</resources>

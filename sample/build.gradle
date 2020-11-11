@@ -1,19 +1,21 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.ben-manes.versions'
 
-apply from: '../gradle/dependencies.gradle'
+apply from: "$rootDir/gradle/dependencies.gradle"
+apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
-  compileSdkVersion 30
-  buildToolsVersion '30.0.2'
+  resourcePrefix config.resourcePrefix
+
+  compileSdkVersion config.compileSdkVersion
+  buildToolsVersion config.buildToolsVersion
 
   defaultConfig {
+    minSdkVersion config.minSdkVersion
+    targetSdkVersion config.targetSdkVersion
+    versionCode config.versionCode
+    versionName versionName()
     applicationId "net.yslibrary.historian.sample"
-    minSdkVersion 26
-    targetSdkVersion 30
-    versionCode 1
-    versionName "1.0"
-    testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
   }
 
   buildTypes {
@@ -27,11 +29,16 @@ android {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
   }
+
+  buildFeatures {
+    dataBinding = true
+    viewBinding = true
+  }
 }
 
 dependencies {
   implementation "androidx.appcompat:appcompat:${deps.appcompat}"
-  implementation "com.google.android.material:material:${deps.design}"
+  implementation "com.google.android.material:material:${deps.material}"
 
   //implementation project(':historian-core')
   implementation project(':historian-tree')

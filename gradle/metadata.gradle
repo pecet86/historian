@@ -1,8 +1,0 @@
-ext {
-  metadata = [
-      groupId   : 'net.yslibrary.historian',
-      website   : 'https://github.com/pecet86/historian',
-      repository: 'git@github.com:pecet86/historian.git',
-      licences  : ['Apache-2.0']
-  ]
-}
