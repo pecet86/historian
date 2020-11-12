@@ -4,6 +4,7 @@ import net.yslibrary.historian.internal.data.converters.DateConverter;
 import net.yslibrary.historian.internal.data.dao.LogsDao;
 
 import org.parceler.Parcel;
+import org.parceler.Parcel.Serialization;
 
 import java.text.DateFormat;
 import java.util.Date;
@@ -31,7 +32,7 @@ import static android.util.Log.getStackTraceString;
 @Getter
 @NoArgsConstructor
 @Entity(tableName = LogsDao.TABLE)
-@Parcel
+@Parcel(Serialization.BEAN)
 public class LogEntity {
 
   //<editor-fold desc="fields">

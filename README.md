@@ -3,6 +3,7 @@ Historian
 
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Historian-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5329)
 [![codecov](https://codecov.io/gh/yshrsmz/historian/branch/master/graph/badge.svg)](https://codecov.io/gh/yshrsmz/historian)
+[![](https://jitpack.io/v/pecet86/historian.svg)](https://jitpack.io/#pecet86/historian)
 
 Historian is a custom [Timber](https://github.com/JakeWharton/timber).Tree implementation that saves logs to SQLite, so that you can see/download the SQLite file later for debugging.
 
@@ -10,18 +11,17 @@ This library is primarily made to help debugging crash in consumers' devices.
 
 ## Installation
 
-Historian is distributed via [jitpack.io](https://jitpack.io), VERSION **2.1.0**.
-
 ```gradle
 repositories {
     maven { url "https://jitpack.io" }
 }
 dependencies {
-  implementation 'net.yslibrary.historian:historian-core:LATEST_LIBRARY_VERSION'
-  implementation 'net.yslibrary.historian:historian-tree:LATEST_LIBRARY_VERSION' //connect to timber
-  implementation 'net.yslibrary.historian:historian-uncaught-handler:LATEST_LIBRARY_VERSION' //crash activity
-  implementation 'net.yslibrary.historian:historian-uncaught-rxjava2:LATEST_LIBRARY_VERSION' //RaJava2 global error
-  implementation 'com.jakewharton.timber:timber:4.5.1'
+  def historian_version = '<version>'
+  implementation "com.github.pecet86.historian:historian-core:$historian_version"
+  implementation "com.github.pecet86.historian:historian-tree:$historian_version" //connect to timber
+  implementation "com.github.pecet86.historian:historian-uncaught-handler:$historian_version" //crash activity
+  implementation "com.github.pecet86.historian:historian-uncaught-rxjava2:$historian_version" //RaJava2 global error
+  implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 
 android {
