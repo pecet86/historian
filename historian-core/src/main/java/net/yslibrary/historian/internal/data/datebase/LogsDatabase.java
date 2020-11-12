@@ -19,7 +19,8 @@ import androidx.room.RoomDatabase;
     entities = {
         LogEntity.class,
     },
-    version = 2
+    version = 2,
+    exportSchema = false
 )
 public abstract class LogsDatabase extends RoomDatabase {
   public abstract LogsDao logEntityDao();

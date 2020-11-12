@@ -48,7 +48,7 @@
         android:layout_height="match_parent"
 
         app:defaultNavHost="true"
-        app:navGraph="@navigation/historian_nav_graph" />
+        app:navGraph="@navigation/historian_main_nav_graph" />
 
   </LinearLayout>
 </layout>

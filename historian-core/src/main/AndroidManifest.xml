@@ -16,7 +16,7 @@
         android:launchMode="singleTask"
         android:taskAffinity="${task_affinity}"
         android:theme="@style/Historian.Theme">
-      <nav-graph android:value="@navigation/historian_nav_graph" />
+      <nav-graph android:value="@navigation/historian_main_nav_graph" />
     </activity>
 
     <service
