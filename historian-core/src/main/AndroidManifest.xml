@@ -26,7 +26,7 @@
 
     <provider
         android:name=".internal.support.providers.HistorianFileProvider"
-        android:authorities="${files_authority}"
+        android:authorities="${applicationId}.${files_authority}"
         android:exported="false"
         android:grantUriPermissions="true">
       <meta-data

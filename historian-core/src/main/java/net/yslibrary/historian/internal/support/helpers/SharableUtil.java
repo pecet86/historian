@@ -92,7 +92,7 @@ public class SharableUtil {
 
     Uri uri = FileProvider.getUriForFile(
         activity,
-        BuildConfig.FILES_AUTHORITY,
+        activity.getPackageName() + "." + BuildConfig.FILES_AUTHORITY,
         file
     );
     Intent shareIntent = ShareCompat.IntentBuilder.from(activity)
