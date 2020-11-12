@@ -16,18 +16,11 @@ import net.yslibrary.historian.databinding.HistorianFragmentLogBinding;
 import net.yslibrary.historian.internal.data.datebase.LogsDatabase;
 import net.yslibrary.historian.internal.data.entities.LogEntity;
 import net.yslibrary.historian.internal.support.RepositoryProvider;
-import net.yslibrary.historian.internal.support.helpers.LogDetailsSharable;
-import net.yslibrary.historian.internal.support.helpers.SharableUtil;
 import net.yslibrary.historian.internal.ui.view_models.LogViewModel;
-
-import org.jetbrains.annotations.NotNull;
-
-import java.io.IOException;
 
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.core.app.ShareCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
@@ -35,14 +28,13 @@ import androidx.navigation.Navigation;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-import static net.yslibrary.historian.internal.Util.copyTo;
-import static net.yslibrary.historian.internal.support.helpers.SharableUtil.PLAIN_MIME_TYPE;
+import static net.yslibrary.historian.internal.Constantes.GET_FILE_FOR_SAVING_REQUEST_CODE;
+import static net.yslibrary.historian.internal.Util.createFileToSaveBody;
+import static net.yslibrary.historian.internal.Util.exportSingleLog;
+import static net.yslibrary.historian.internal.Util.saveToFile;
 import static net.yslibrary.historian.internal.ui.fragments.LogListFragmentDirections.actionGlobalLogListFragment;
 
 public class LogFragment extends BaseFragment {
-
-  private static final String EXPORT_FILE_NAME = "throwable.txt";
-  private static final int GET_FILE_FOR_SAVING_REQUEST_CODE = 43;
 
   private HistorianFragmentLogBinding binding;
   private LogViewModel viewModel;
@@ -148,7 +140,7 @@ public class LogFragment extends BaseFragment {
     } else if (itemId == R.id.share_file) {
       askForConfirmationExport(true);
     } else if (itemId == R.id.save_body) {
-      createFileToSaveBody();
+      createFileToSaveBody(requireActivity());
     } else {
       return super.onOptionsItemSelected(item);
     }
@@ -212,72 +204,12 @@ public class LogFragment extends BaseFragment {
         .setMessage(R.string.historian_export_log_confirmation)
         .setNegativeButton(R.string.historian_cancel, (r, t) -> {
         })
-        .setPositiveButton(R.string.historian_export, (r, t) -> exportThrowables(file))
+        .setPositiveButton(R.string.historian_export, (r, t) -> exportSingleLog(
+            requireActivity(),
+            viewModel.element.getValue(),
+            file))
         .create()
         .show();
-  }
-
-  private void exportThrowables(boolean file) {
-    LogEntity throwable = viewModel.element.getValue();
-    if (throwable == null) {
-      toastShort(R.string.historian_export_empty_text);
-      return;
-    }
-
-    Intent shareIntent;
-    if (file) {
-      shareIntent = SharableUtil.shareAsFile(
-          new LogDetailsSharable(throwable),
-          requireActivity(),
-          EXPORT_FILE_NAME,
-          R.string.historian_share_log_title,
-          R.string.historian_share_log_subject,
-          "throwables"
-      );
-    } else {
-      String throwableDetailsText = getString(
-          R.string.historian_share_log_content,
-          throwable.getFormatTimestamp(),
-          throwable.getClazzOrEmpty(),
-          throwable.getTagOrEmpty(),
-          throwable.getMessage(),
-          throwable.getContentOrEmpty()
-      );
-      shareIntent = ShareCompat
-          .IntentBuilder
-          .from(requireActivity())
-          .setType(PLAIN_MIME_TYPE)
-          .setChooserTitle(R.string.historian_share_log_title)
-          .setSubject(getString(R.string.historian_share_log_subject))
-          .setText(throwableDetailsText)
-          .createChooserIntent();
-    }
-
-    if (shareIntent != null) {
-      startActivity(shareIntent);
-    }
-  }
-
-  private void createFileToSaveBody() {
-    Intent intent = new Intent("android.intent.action.CREATE_DOCUMENT")
-        .addCategory("android.intent.category.OPENABLE")
-        .putExtra("android.intent.extra.TITLE", "historian-export-" + System.currentTimeMillis())
-        .setType("*/*");
-    if (intent.resolveActivity(requireActivity().getPackageManager()) != null) {
-      startActivityForResult(intent, GET_FILE_FOR_SAVING_REQUEST_CODE);
-    } else {
-      toastShort(R.string.historian_save_failed_to_open_document);
-    }
-  }
-
-  private void saveToFile(@NotNull Uri uri, @NotNull LogEntity throwable) throws IOException {
-    copyTo(
-        requireContext()
-            .getContentResolver()
-            .openFileDescriptor(uri, "w")
-            .getFileDescriptor(),
-        new LogDetailsSharable(throwable).toSharableContent(requireContext())
-    );
   }
   //</editor-fold>
 
@@ -285,10 +217,10 @@ public class LogFragment extends BaseFragment {
   public void onActivityResult(int requestCode, int resultCode, @Nullable Intent resultData) {
     if (requestCode == GET_FILE_FOR_SAVING_REQUEST_CODE && resultCode == -1) {
       Uri uri = resultData != null ? resultData.getData() : null;
-      LogEntity throwable = viewModel.element.getValue();
-      if (uri != null && throwable != null) {
+      LogEntity entity = viewModel.element.getValue();
+      if (uri != null && entity != null) {
         try {
-          saveToFile(uri, throwable);
+          saveToFile(requireActivity(), uri, entity);
           toastShort(R.string.historian_file_saved);
         } catch (Exception ex) {
           toastShort(R.string.historian_file_not_saved);

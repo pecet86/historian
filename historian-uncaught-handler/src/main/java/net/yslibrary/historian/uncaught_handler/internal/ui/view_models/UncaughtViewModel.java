@@ -12,36 +12,16 @@ import androidx.lifecycle.ViewModel;
 public class UncaughtViewModel extends ViewModel {
 
   public final MutableLiveData<Boolean> restartActivityEnable;
-  public final MutableLiveData<Integer> restartAppButtonText;
-
   public final MutableLiveData<Boolean> closeActivityEnable;
-  public final MutableLiveData<Integer> closeAppButtonText;
-
-  public final MutableLiveData<Integer> crashText;
-  public final MutableLiveData<Integer> crashTextColor;
-
   public final MutableLiveData<Boolean> detailsButtonEnable;
-  public final MutableLiveData<Integer> detailsButtonText;
-
   public final MutableLiveData<Integer> imagePath;
-  public final MutableLiveData<Integer> backgorundColor;
 
   //<editor-fold desc="init & destroy">
   public UncaughtViewModel() {
     restartActivityEnable = new MutableLiveData<>(false);
-    restartAppButtonText = new MutableLiveData<>(-1);
-
     closeActivityEnable = new MutableLiveData<>(false);
-    closeAppButtonText = new MutableLiveData<>(-1);
-
-    crashText = new MutableLiveData<>(-1);
-    crashTextColor = new MutableLiveData<>(-1);
-
     detailsButtonEnable = new MutableLiveData<>(false);
-    detailsButtonText = new MutableLiveData<>(-1);
-
     imagePath = new MutableLiveData<>(-1);
-    backgorundColor = new MutableLiveData<>(-1);
   }
 
   @Override

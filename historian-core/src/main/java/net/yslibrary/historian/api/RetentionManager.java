@@ -14,12 +14,13 @@ import io.reactivex.schedulers.Schedulers;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 
+import static android.content.Context.MODE_PRIVATE;
+import static net.yslibrary.historian.internal.Constantes.KEY_LAST_CLEANUP;
+import static net.yslibrary.historian.internal.Constantes.PREFS_NAME;
+
 public class RetentionManager {
 
   protected static final String TAG = RetentionManager.class.getSimpleName();
-
-  private static final String PREFS_NAME = "historian_preferences";
-  private static final String KEY_LAST_CLEANUP = "last_cleanup";
 
   private static long lastCleanup = 0;
 
@@ -33,7 +34,7 @@ public class RetentionManager {
     this.context = context;
 
     period = retentionPeriod.toMillis();
-    preferences = RxSharedPreferences.create(context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE));
+    preferences = RxSharedPreferences.create(context.getSharedPreferences(PREFS_NAME, MODE_PRIVATE));
     cleanupFrequency = retentionPeriod == Period.ONE_HOUR
         ? TimeUnit.MINUTES.toMillis(30L)
         : TimeUnit.HOURS.toMillis(2L);
@@ -78,7 +79,7 @@ public class RetentionManager {
         .subscribeOn(Schedulers.io())
         .subscribe();
   }
-  
+
   @RequiredArgsConstructor
   @Getter
   public enum Period {

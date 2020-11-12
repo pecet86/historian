@@ -12,6 +12,7 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import io.reactivex.Completable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 /**
  * Class LogsDao
@@ -29,6 +30,9 @@ public abstract class LogsDao {
 
   @Query("DELETE FROM " + TABLE)
   public abstract Completable clearAll();
+
+  @Query("SELECT * FROM " + TABLE + " ORDER BY timestamp DESC")
+  public abstract Single<List<LogEntity>> getAll();
 
   @Delete
   public abstract Completable delete(LogEntity value);

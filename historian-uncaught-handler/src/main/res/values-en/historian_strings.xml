@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="historian_app_name">HistorianUncaughtExceptionHandlerLibrary</string>
+  <string name="historian_crash_text">D\'oh! Its Crash…</string>
+  <string name="historian_button_details">Details</string>
+  <string name="historian_button_open">Historian</string>
+  <string name="historian_button_close_app">Close</string>
+  <string name="historian_button_restart_app">Restart</string>
+  <string name="historian_details_dialog_title">Reason</string>
+  <string name="historian_details_dialog_button_close">CLOSE</string>
+  <string name="historian_details_dialog_button_export">Export</string>
+  <string name="historian_details_dialog_button_save">Save body</string>
+</resources>

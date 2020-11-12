@@ -4,12 +4,12 @@ import android.annotation.SuppressLint;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.yslibrary.historian.internal.Util;
 import net.yslibrary.historian.internal.Util.Duration;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 import androidx.fragment.app.Fragment;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BaseFragment extends Fragment {
   protected String TAG;
@@ -46,19 +46,15 @@ public class BaseFragment extends Fragment {
 
   //<editor-fold desc="toast">
   @SuppressLint("ShowToast")
-  protected void toast(String message, @Duration int duration) {
-    Single
-        .just(Toast.makeText(getActivity(), message, duration))
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(Toast::show)
-        .subscribe();
+  protected void toast(@NonNull String message, @Duration int duration) {
+    Util.toast(requireContext(), message, duration);
   }
 
-  protected void toastShort(String message) {
+  protected void toastShort(@NonNull String message) {
     toast(message, Toast.LENGTH_SHORT);
   }
 
-  protected void toastLong(String message) {
+  protected void toastLong(@NonNull String message) {
     toast(message, Toast.LENGTH_LONG);
   }
 
@@ -70,5 +66,4 @@ public class BaseFragment extends Fragment {
     toast(getString(id), Toast.LENGTH_LONG);
   }
   //</editor-fold>
-
 }

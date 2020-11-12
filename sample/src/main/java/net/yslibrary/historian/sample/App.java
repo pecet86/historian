@@ -39,7 +39,7 @@ public class App extends Application {
     historian = Historian
         .builder(this)
         .debug(true)
-        .logLevel(Log.INFO) //minimal log lever
+        .logLevel(Log.ERROR) //minimal log lever
         .notification(true) //show notification
         .retentionPeriod(Period.ONE_WEEK) //when delete old
         .callbacks(new Historian.Callbacks() { //added
@@ -59,21 +59,8 @@ public class App extends Application {
     HistorianUncaughtExceptionHandler.install(this, historian,
         new CrashConfig()
             /*.withRestartActivityEnable(true)
-            .withRestartAppButtonText(R.string.historian_restart_app_button_text)
-
             .withCloseActivityEnable(true)
-            .withCloseAppButtonText(R.string.historian_close_app_button_text)
-
-            .withCrashText(R.string.historian_crash_text)
-            .withCrashTextColor(R.color.historian_crash_text)
-
-            .withDetailsButtonText(R.string.historian_details_button_text)
-            .withDetailsDialogTitle(R.string.historian_details_dialog_title)
-            .withDetailsDialogButtonText(R.string.historian_details_dialog_button_text)
-
-            .withImagePath(R.drawable.historian_cow_error)
-            .withBackgorundColor(R.color.historian_backgorund)*/
-
+            .withImagePath(R.drawable.historian_cow_error)*/
             .withRestartActivityClass(MainActivity.class)
     );
 

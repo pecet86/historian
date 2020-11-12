@@ -6,11 +6,11 @@ import android.content.Intent;
 import android.util.Log;
 
 import net.yslibrary.historian.api.Historian;
+import net.yslibrary.historian.internal.data.entities.LogEntity;
 import net.yslibrary.historian.uncaught_handler.internal.ui.activity.UncaughtActivity;
 
-import java.io.PrintWriter;
-import java.io.StringWriter;
-import java.io.Writer;
+import org.parceler.Parcels;
+
 import java.lang.Thread.UncaughtExceptionHandler;
 
 import androidx.annotation.Keep;
@@ -18,9 +18,14 @@ import androidx.annotation.NonNull;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
 
+import static android.content.Intent.FLAG_ACTIVITY_CLEAR_TOP;
+import static android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
+import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
+import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
+import static android.content.Intent.FLAG_ACTIVITY_TASK_ON_HOME;
 import static java.lang.Thread.getDefaultUncaughtExceptionHandler;
-import static net.yslibrary.historian.uncaught_handler.internal.ui.activity.UncaughtActivity.CONFIGURATION_KEY;
-import static net.yslibrary.historian.uncaught_handler.internal.ui.activity.UncaughtActivity.STACKTRACE_KEY;
+import static net.yslibrary.historian.uncaught_handler.internal.Constantes.CONFIGURATION_KEY;
+import static net.yslibrary.historian.uncaught_handler.internal.Constantes.STACKTRACE_KEY;
 
 /**
  * Class HistorianUncaughtExceptionHandler
@@ -69,21 +74,15 @@ public class HistorianUncaughtExceptionHandler implements UncaughtExceptionHandl
   }
 
   private Intent createIntent(@NonNull Throwable th) {
-    Writer result = new StringWriter();
-    PrintWriter printWriter = new PrintWriter(result);
-    th.printStackTrace(printWriter);
-    String stacktrace = result.toString();
-    printWriter.close();
-
-    final int flags = Intent.FLAG_ACTIVITY_CLEAR_TOP |
-        Intent.FLAG_ACTIVITY_NEW_TASK |
-        Intent.FLAG_ACTIVITY_TASK_ON_HOME |
-        Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
-        Intent.FLAG_ACTIVITY_NO_HISTORY;
+    final int flags = FLAG_ACTIVITY_CLEAR_TOP |
+        FLAG_ACTIVITY_NEW_TASK |
+        FLAG_ACTIVITY_TASK_ON_HOME |
+        FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS |
+        FLAG_ACTIVITY_NO_HISTORY;
 
     return new Intent(context, UncaughtActivity.class)
         .setFlags(flags)
-        .putExtra(STACKTRACE_KEY, stacktrace)
+        .putExtra(STACKTRACE_KEY, Parcels.wrap(new LogEntity(Log.ERROR, "UncaughtException", th.getMessage(), th)))
         .putExtra(CONFIGURATION_KEY, crashConfig);
   }
 
@@ -105,13 +104,5 @@ public class HistorianUncaughtExceptionHandler implements UncaughtExceptionHandl
         handler.uncaughtException(t, th);
       }
     }
-  }
-
-  private static String getStackTraceString(@NonNull Throwable th) {
-    StringWriter sw = new StringWriter(256);
-    PrintWriter pw = new PrintWriter(sw, false);
-    th.printStackTrace(pw);
-    pw.flush();
-    return sw.toString();
   }
 }

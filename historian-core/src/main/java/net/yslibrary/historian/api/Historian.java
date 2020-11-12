@@ -1,17 +1,19 @@
 package net.yslibrary.historian.api;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
 import net.yslibrary.historian.BuildConfig;
-import net.yslibrary.historian.internal.Util.LogPriority;
 import net.yslibrary.historian.internal.data.LogWritingTask;
 import net.yslibrary.historian.internal.data.datebase.LogsDatabase;
 import net.yslibrary.historian.internal.data.entities.LogEntity;
+import net.yslibrary.historian.internal.data.entities.PriorityType.LogPriority;
 import net.yslibrary.historian.internal.support.NotificationHelper;
 import net.yslibrary.historian.internal.ui.activities.MainActivity;
 
+import java.util.Collections;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -23,8 +25,10 @@ import io.reactivex.schedulers.Schedulers;
 import lombok.Getter;
 
 import static net.yslibrary.historian.api.RetentionManager.Period;
-import static net.yslibrary.historian.internal.Util.DB_NAME;
-import static net.yslibrary.historian.internal.Util.LOG_LEVEL;
+import static net.yslibrary.historian.internal.Constantes.DB_NAME;
+import static net.yslibrary.historian.internal.Constantes.LOG_LEVEL;
+import static net.yslibrary.historian.internal.Util.askForConfirmationClear;
+import static net.yslibrary.historian.internal.Util.askForConfirmationExport;
 
 /**
  * Class HistorianTree
@@ -127,9 +131,27 @@ public class Historian {
   }
 
   /**
+   * Exportuj dane
+   */
+  private void export(Activity activity) {
+    database
+        .logEntityDao()
+        .getAll()
+        .subscribeOn(Schedulers.io())
+        .onErrorReturnItem(Collections.emptyList())
+        .doOnSuccess(entities -> askForConfirmationExport(activity, entities))
+        .ignoreElement()
+        .subscribe();
+  }
+
+  /**
    * Wyczyść bazę danych
    */
-  public void clear() {
+  private void clear() {
+    askForConfirmationClear(context, this::clearElements);
+  }
+
+  private void clearElements() {
     database
         .logEntityDao()
         .clearAll()

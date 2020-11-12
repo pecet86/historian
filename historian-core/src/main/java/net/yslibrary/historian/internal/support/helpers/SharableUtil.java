@@ -29,11 +29,13 @@ import okio.BufferedSource;
 import okio.Okio;
 import okio.Source;
 
+import static net.yslibrary.historian.internal.Constantes.PLAIN_MIME_TYPE;
+
 @UtilityClass
 public class SharableUtil {
 
   private static final String TAG = SharableUtil.class.getSimpleName();
-  public static final String PLAIN_MIME_TYPE = "text/plain";
+
 
   @WorkerThread
   @Nullable

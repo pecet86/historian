@@ -10,7 +10,7 @@ This library is primarily made to help debugging crash in consumers' devices.
 
 ## Installation
 
-Historian is distributed via [jitpack.io](https://jitpack.io), VERSION **2.0.0**.
+Historian is distributed via [jitpack.io](https://jitpack.io), VERSION **2.1.0**.
 
 ```gradle
 repositories {
@@ -66,20 +66,8 @@ class App extends Application {
         HistorianUncaughtExceptionHandler.install(this, historian,
             new CrashConfig()
                 .withRestartActivityEnable(true)
-                .withRestartAppButtonText(R.string.historian_restart_app_button_text)
-
                 .withCloseActivityEnable(true)
-                .withCloseAppButtonText(R.string.historian_close_app_button_text)
-
-                .withCrashText(R.string.historian_crash_text)
-                .withCrashTextColor(R.color.historian_crash_text)
-
-                .withDetailsButtonText(R.string.historian_details_button_text)
-                .withDetailsDialogTitle(R.string.historian_details_dialog_title)
-                .withDetailsDialogButtonText(R.string.historian_details_dialog_button_text)
-
                 .withImagePath(R.drawable.historian_cow_error)
-                .withBackgorundColor(R.color.historian_backgorund)
 
                 .withRestartActivityClass(MainActivity.class)
         );
@@ -98,11 +86,10 @@ class App extends Application {
 
 ## Libraries definition
 
-use [Android Room](https://developer.android.com/topic/libraries/architecture/room)
-use [ReactiveX](https://github.com/ReactiveX/RxJava/tree/2.x)
-use [Timber](https://github.com/JakeWharton/timber)
-use [Okio](https://github.com/square/okio)
-
+- use [Android Room](https://developer.android.com/topic/libraries/architecture/room)
+- use [ReactiveX](https://github.com/ReactiveX/RxJava/tree/2.x)
+- use [Timber](https://github.com/JakeWharton/timber)
+- use [Okio](https://github.com/square/okio)
 
 ## License
 

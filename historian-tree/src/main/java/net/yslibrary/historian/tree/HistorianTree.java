@@ -3,7 +3,7 @@ package net.yslibrary.historian.tree;
 import android.util.Log;
 
 import net.yslibrary.historian.api.Historian;
-import net.yslibrary.historian.internal.Util.LogPriority;
+import net.yslibrary.historian.internal.data.entities.PriorityType.LogPriority;
 
 import java.lang.reflect.Method;
 
@@ -176,7 +176,7 @@ public class HistorianTree extends Timber.Tree {
    * Log at {@code priority} a message with optional format args.
    */
   @Override
-  public void log(int priority, String message, Object... args) {
+  public void log(@LogPriority int priority, String message, Object... args) {
     prepareLog(priority, null, message, args);
   }
 
@@ -184,7 +184,7 @@ public class HistorianTree extends Timber.Tree {
    * Log at {@code priority} an exception and a message with optional format args.
    */
   @Override
-  public void log(int priority, Throwable t, String message, Object... args) {
+  public void log(@LogPriority int priority, Throwable t, String message, Object... args) {
     prepareLog(priority, t, message, args);
   }
 
@@ -192,7 +192,7 @@ public class HistorianTree extends Timber.Tree {
    * Log at {@code priority} an exception.
    */
   @Override
-  public void log(int priority, Throwable t) {
+  public void log(@LogPriority int priority, Throwable t) {
     prepareLog(priority, t, null);
   }
   //</editor-fold>

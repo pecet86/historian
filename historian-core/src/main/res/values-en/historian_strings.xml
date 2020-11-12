@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-  <string name="historian_name">Historian</string>
   <string name="historian_list_name">Logs</string>
   <string name="historian_clear">Clear</string>
   <string name="historian_delete">Delete</string>
@@ -20,17 +19,14 @@
   <string name="historian_throwable_notification_category">Chucker throwables</string>
   <string name="historian_share_log_title">Share log details</string>
   <string name="historian_share_log_subject">Log details</string>
-  <string name="historian_share_log_content"><![CDATA[Date: %1$s\nException: %2$s\nTag: %3$s\nMessage: %4$s\n\n%5$s]]></string>
   <string name="historian_clear_logs_confirmation">Do you want to clear complete logs history?</string>
   <string name="historian_export_logs_confirmation">Do you want to export logs history?</string>
   <string name="historian_export_log_confirmation">Do you want to export log?</string>
   <string name="historian_clear_log_confirmation">Do you want to delete log?</string>
-  <string name="historian_export_separator">==================</string>
   <string name="historian_export_prefix">/* Export Start */</string>
   <string name="historian_export_postfix">/*  Export End  */</string>
   <string name="historian_check_readme"><a href="https://github.com/pecet86/historian/blob/master/README.md#installation">Check the setup instructions on GitHub</a></string>
   <string name="historian_setup">Setup</string>
-
   <string name="historian_share_priority">Priority</string>
   <string name="historian_share_tag">Tag</string>
   <string name="historian_share_class">Class</string>

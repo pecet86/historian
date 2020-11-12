@@ -5,7 +5,7 @@
   <application>
     <activity
         android:name=".internal.ui.activity.UncaughtActivity"
-        android:theme="@style/AppTheme.NoTitleBar"
+        android:theme="@style/Historian.NoTitleBar"
         android:noHistory="true"
         android:excludeFromRecents="true"
         android:process=":error_activity" />

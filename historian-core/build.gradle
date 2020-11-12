@@ -100,6 +100,10 @@ dependencies {
   implementation "androidx.room:room-rxjava2:${deps.room}"
   annotationProcessor "androidx.room:room-compiler:${deps.room}"
 
+  //parceler
+  implementation "org.parceler:parceler-api:${deps.parceler}"
+  annotationProcessor "org.parceler:parceler:${deps.parceler}"
+
   //RxJava
   implementation "io.reactivex.rxjava2:rxjava:${deps.rxjava}"
   implementation "io.reactivex.rxjava2:rxandroid:${deps.rxandroid}"

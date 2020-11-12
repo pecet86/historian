@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="historian_list_name">Dzienniki</string>
+  <string name="historian_clear">Wyczyść</string>
+  <string name="historian_delete">Usuń</string>
+  <string name="historian_cancel">Anuluj</string>
+  <string name="historian_share">Udostępnij</string>
+  <string name="historian_export">Eksportuj</string>
+  <string name="historian_export_empty_text">Nie ma nic do wyeksportowania</string>
+  <string name="historian_export_no_file">Nie udało się utworzyć pliku do eksportu</string>
+  <string name="historian_share_as_text">Udostępnij jako tekst</string>
+  <string name="historian_share_as_file">Udostępnij jako plik</string>
+  <string name="historian_save">Zapisz treść do pliku</string>
+  <string name="historian_save_failed_to_open_document">Nie udało się otworzyć selektora plików</string>
+  <string name="historian_file_saved">Plik został zapisany pomyślnie!</string>
+  <string name="historian_file_not_saved">Nie udało się zapisać pliku</string>
+  <string name="historian_search">Wyszukaj</string>
+  <string name="historian_throwable_tutorial">Wyświetla dzienniki (np. wyjątki) zarejestrowane metodą Historian.log. Wywołaj tę metodę, gdy zostanie wyrzucony błąd, aby sprawdzić bieżący ślad stosu.</string>
+  <string name="historian_throwable_notification_category">Chucker do rzucania</string>
+  <string name="historian_share_log_title">Udostępnij szczegóły dziennika</string>
+  <string name="historian_share_log_subject">Szczegóły dziennika</string>
+  <string name="historian_clear_logs_confirmation">Czy chcesz wyczyścić całą historię dzienników?</string>
+  <string name="historian_export_logs_confirmation">Czy chcesz wyeksportować historię logów?</string>
+  <string name="historian_export_log_confirmation">Czy chcesz wyeksportować dziennik?</string>
+  <string name="historian_clear_log_confirmation">Czy chcesz usunąć dziennik?</string>
+  <string name="historian_export_prefix">/* Rozpoczęcie eksportu */</string>
+  <string name="historian_export_postfix">/* Koniec eksportu */</string>
+  <string name="historian_check_readme"><a href="https://github.com/pecet86/historian/blob/master/README.md#installation">Sprawdź instrukcje konfiguracji w GitHub</a></string>
+  <string name="historian_setup">Konfiguracja</string>
+  <string name="historian_share_priority">Priority</string>
+  <string name="historian_share_tag">Tag</string>
+  <string name="historian_share_class">Klasa</string>
+  <string name="historian_share_message">Wiadomość</string>
+  <string name="historian_share_content">Treść</string>
+  <string name="historian_share_all_logs_title">Udostępnij dzienniki</string>
+  <string name="historian_share_all_logs_subject">Wszystkie dzienniki</string>
+  <string name="historian_wrong_walue">Zła wartość</string>
+  <string name="historian_not_found">Nie znaleziono wartości</string>
+</resources>

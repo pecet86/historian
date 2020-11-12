@@ -6,7 +6,7 @@ import net.yslibrary.historian.internal.data.datebase.LogsDatabase;
 
 import java.io.IOException;
 
-import static net.yslibrary.historian.internal.Util.DB_NAME;
+import static net.yslibrary.historian.internal.Constantes.DB_NAME;
 
 public class RepositoryProvider {
 

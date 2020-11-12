@@ -45,4 +45,8 @@ dependencies {
   //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:${deps.lombok}"
   annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
+
+  //parceler
+  implementation "org.parceler:parceler-api:${deps.parceler}"
+  annotationProcessor "org.parceler:parceler:${deps.parceler}"
 }

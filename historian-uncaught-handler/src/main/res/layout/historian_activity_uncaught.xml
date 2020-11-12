@@ -24,8 +24,7 @@
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        tools:background="@color/historian_backgorund"
-        android:background="@{viewModel.backgorundColor}">
+        android:background="@color/historian_backgorund">
 
       <ImageView
           android:id="@+id/image"
@@ -44,10 +43,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="@string/historian_crash_text"
-            tools:textColor="@color/historian_crash_text"
-            android:text="@{viewModel.crashText}"
-            android:textColor="@{viewModel.crashTextColor}"
+            android:text="@string/historian_crash_text"
+            android:textColor="@color/historian_crash_text"
             android:textSize="18sp"
             android:textStyle="bold"
             android:id="@+id/textViewC" />
@@ -59,31 +56,28 @@
 
           <Button
               android:id="@+id/btnRestart"
-              tools:text="@string/historian_restart_app_button_text"
-              android:text="@{viewModel.restartAppButtonText}"
+              android:text="@string/historian_button_restart_app"
               android:visibility="@{viewModel.restartActivityEnable ? View.VISIBLE : View.GONE}"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
 
           <Button
               android:id="@+id/btnClose"
-              tools:text="@string/historian_close_app_button_text"
-              android:text="@{viewModel.closeAppButtonText}"
+              android:text="@string/historian_button_close_app"
               android:visibility="@{viewModel.closeActivityEnable ? View.VISIBLE : View.GONE}"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
 
           <Button
               android:id="@+id/btnDetails"
-              tools:text="@string/historian_details_button_text"
-              android:text="@{viewModel.detailsButtonText}"
+              android:text="@string/historian_button_details"
               android:visibility="@{viewModel.detailsButtonEnable ? View.VISIBLE : View.GONE}"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
 
           <Button
               android:id="@+id/btnHistorian"
-              android:text="@string/historian_open_button_text"
+              android:text="@string/historian_button_open"
               android:layout_width="match_parent"
               android:layout_height="wrap_content" />
         </LinearLayout>

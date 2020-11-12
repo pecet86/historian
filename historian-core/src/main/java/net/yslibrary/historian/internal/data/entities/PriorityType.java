@@ -2,6 +2,10 @@ package net.yslibrary.historian.internal.data.entities;
 
 import android.util.Log;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 import androidx.room.TypeConverter;
 
 /**
@@ -22,7 +26,7 @@ public enum PriorityType {
     return type == null ? null : type.name();
   }
 
-  public static PriorityType getPriority(int priority) {
+  public static PriorityType getPriority(@LogPriority int priority) {
     switch (priority) {
       case Log.VERBOSE:
         return PriorityType.VERBOSE;
@@ -39,5 +43,17 @@ public enum PriorityType {
       default:
         return PriorityType.UNKNOWN;
     }
+  }
+
+  @IntDef(value = {
+      Log.VERBOSE,
+      Log.DEBUG,
+      Log.INFO,
+      Log.WARN,
+      Log.ERROR,
+      Log.ASSERT
+  })
+  @Retention(RetentionPolicy.SOURCE)
+  public @interface LogPriority {
   }
 }

@@ -6,14 +6,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import net.yslibrary.historian.internal.Util;
 import net.yslibrary.historian.internal.Util.Duration;
 import net.yslibrary.historian.internal.support.RepositoryProvider;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.StringRes;
 import androidx.appcompat.app.AppCompatActivity;
-import io.reactivex.Single;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 
 public class BaseActivity extends AppCompatActivity {
 
@@ -83,27 +83,23 @@ public class BaseActivity extends AppCompatActivity {
 
   //<editor-fold desc="toast">
   @SuppressLint({"ShowToast", "AutoDispose"})
-  protected void toast(String message, @Duration int duration) {
-    Single
-        .just(Toast.makeText(this, message, duration))
-        .subscribeOn(AndroidSchedulers.mainThread())
-        .doOnSuccess(Toast::show)
-        .subscribe();
+  public void toast(@NonNull String message, @Duration int duration) {
+    Util.toast(this, message, duration);
   }
 
-  protected void toastShort(String message) {
+  public void toastShort(@NonNull String message) {
     toast(message, Toast.LENGTH_SHORT);
   }
 
-  protected void toastLong(String message) {
+  public void toastLong(@NonNull String message) {
     toast(message, Toast.LENGTH_LONG);
   }
 
-  protected void toastShort(@StringRes int id) {
+  public void toastShort(@StringRes int id) {
     toast(getString(id), Toast.LENGTH_SHORT);
   }
 
-  protected void toastLong(@StringRes int id) {
+  public void toastLong(@StringRes int id) {
     toast(getString(id), Toast.LENGTH_LONG);
   }
   //</editor-fold>

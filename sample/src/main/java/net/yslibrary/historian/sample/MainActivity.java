@@ -17,7 +17,7 @@ import timber.log.Timber;
  */
 public class MainActivity extends AppCompatActivity {
 
-  AtomicLong counter = new AtomicLong();
+  private final AtomicLong counter = new AtomicLong();
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
 
     Button testSimple = findViewById(R.id.test_simple);
     testSimple.setOnClickListener(view -> {
-      for (int i = 0, l = 100; i < 100; i++) {
+      for (int i = 0, l = 100; i < l; i++) {
         Timber.i("test: %d", counter.getAndIncrement());
       }
 

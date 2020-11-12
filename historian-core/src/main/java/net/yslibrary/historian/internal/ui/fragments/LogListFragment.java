@@ -1,7 +1,5 @@
 package net.yslibrary.historian.internal.ui.fragments;
 
-import android.app.AlertDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -16,8 +14,6 @@ import net.yslibrary.historian.databinding.HistorianListItemLogBinding;
 import net.yslibrary.historian.internal.data.datebase.LogsDatabase;
 import net.yslibrary.historian.internal.data.entities.LogEntity;
 import net.yslibrary.historian.internal.support.RepositoryProvider;
-import net.yslibrary.historian.internal.support.helpers.LogListDetailsSharable;
-import net.yslibrary.historian.internal.support.helpers.SharableUtil;
 import net.yslibrary.historian.internal.ui.view_models.LogListItemViewModel;
 import net.yslibrary.historian.internal.ui.view_models.LogListViewModel;
 
@@ -37,12 +33,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
+import static net.yslibrary.historian.internal.Util.askForConfirmationClear;
+import static net.yslibrary.historian.internal.Util.askForConfirmationExport;
 import static net.yslibrary.historian.internal.ui.fragments.LogListFragmentDirections.actionLogListFragmentToLogFragment;
 
 public class LogListFragment extends BaseFragment implements OnQueryTextListener {
-
-  private static final String EXPORT_FILE_NAME = "logs.txt";
-  private static final String CLIP_DATA_LABEL = "logs";
 
   private HistorianFragmentLogListBinding binding;
   private LogListViewModel viewModel;
@@ -131,59 +126,13 @@ public class LogListFragment extends BaseFragment implements OnQueryTextListener
   public boolean onOptionsItemSelected(@NonNull MenuItem item) {
     int itemId = item.getItemId();
     if (itemId == R.id.clear) {
-      askForConfirmationClear();
+      askForConfirmationClear(requireContext(), this::clearElements);
     } else if (itemId == R.id.export) {
-      askForConfirmationExport();
+      askForConfirmationExport(requireActivity(), viewModel.logs.getValue());
     } else {
       return super.onOptionsItemSelected(item);
     }
     return true;
-  }
-  //</editor-fold>
-
-  //<editor-fold desc="functions">
-  private void askForConfirmationClear() {
-    new AlertDialog.Builder(getContext())
-        .setCancelable(false)
-        .setTitle(R.string.historian_clear)
-        .setMessage(R.string.historian_clear_logs_confirmation)
-        .setNegativeButton(R.string.historian_cancel, (r, t) -> {
-        })
-        .setPositiveButton(R.string.historian_clear, (r, t) -> clearElements())
-        .create()
-        .show();
-  }
-
-  private void askForConfirmationExport() {
-    new AlertDialog.Builder(getContext())
-        .setCancelable(false)
-        .setTitle(R.string.historian_export)
-        .setMessage(R.string.historian_export_logs_confirmation)
-        .setNegativeButton(R.string.historian_cancel, (r, t) -> {
-        })
-        .setPositiveButton(R.string.historian_export, (r, t) -> exportTransactions())
-        .create()
-        .show();
-  }
-
-  private void exportTransactions() {
-    List<LogEntity> throwables = viewModel.logs.getValue();
-    if (throwables == null || throwables.isEmpty()) {
-      toastShort(R.string.historian_export_empty_text);
-      return;
-    }
-
-    Intent shareIntent = SharableUtil.shareAsFile(
-        new LogListDetailsSharable(throwables),
-        requireActivity(),
-        EXPORT_FILE_NAME,
-        R.string.historian_share_all_logs_title,
-        R.string.historian_share_all_logs_subject,
-        CLIP_DATA_LABEL
-    );
-    if (shareIntent != null) {
-      startActivity(shareIntent);
-    }
   }
   //</editor-fold>
 

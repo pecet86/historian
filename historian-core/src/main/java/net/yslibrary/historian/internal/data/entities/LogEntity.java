@@ -3,6 +3,8 @@ package net.yslibrary.historian.internal.data.entities;
 import net.yslibrary.historian.internal.data.converters.DateConverter;
 import net.yslibrary.historian.internal.data.dao.LogsDao;
 
+import org.parceler.Parcel;
+
 import java.text.DateFormat;
 import java.util.Date;
 
@@ -17,8 +19,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import static net.yslibrary.historian.internal.Util.getStackTraceString;
-
+import static android.util.Log.getStackTraceString;
 
 /**
  * Entity class representing log
@@ -30,6 +31,7 @@ import static net.yslibrary.historian.internal.Util.getStackTraceString;
 @Getter
 @NoArgsConstructor
 @Entity(tableName = LogsDao.TABLE)
+@Parcel
 public class LogEntity {
 
   //<editor-fold desc="fields">

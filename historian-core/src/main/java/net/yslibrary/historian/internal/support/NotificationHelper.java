@@ -16,12 +16,11 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
 import static net.yslibrary.historian.api.Historian.getLaunchIntent;
+import static net.yslibrary.historian.internal.Constantes.CHANNEL_ID;
+import static net.yslibrary.historian.internal.Constantes.INTENT_REQUEST_CODE;
+import static net.yslibrary.historian.internal.Constantes.NOTIFICATION_ID;
 
 public final class NotificationHelper {
-
-  private final static String CHANNEL_ID = "historian_logs";
-  private final static int NOTIFICATION_ID = 1234;
-  private final static int INTENT_REQUEST_CODE = 11;
 
   private final Context context;
   private final NotificationManager notificationManager;

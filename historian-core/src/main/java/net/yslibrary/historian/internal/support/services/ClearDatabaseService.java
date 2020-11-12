@@ -12,12 +12,9 @@ import androidx.core.app.JobIntentService;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 
-public class ClearDatabaseService extends JobIntentService {
+import static net.yslibrary.historian.internal.Constantes.CLEAN_DATABASE_JOB_ID;
 
-  /**
-   * Unique job ID for this service.
-   */
-  static final int CLEAN_DATABASE_JOB_ID = 1000;
+public class ClearDatabaseService extends JobIntentService {
 
   /**
    * Convenience method for enqueuing work in to this service.
