@@ -86,6 +86,7 @@ public class Util {
     Single
         .just(Toast.makeText(context, message, duration))
         .subscribeOn(AndroidSchedulers.mainThread())
+        .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(Toast::show)
         .subscribe();
   }
