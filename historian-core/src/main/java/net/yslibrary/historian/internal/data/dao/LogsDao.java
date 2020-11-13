@@ -34,6 +34,9 @@ public abstract class LogsDao {
   @Query("SELECT * FROM " + TABLE + " ORDER BY timestamp DESC")
   public abstract Single<List<LogEntity>> getAll();
 
+  @Query("SELECT * FROM " + TABLE + " ORDER BY timestamp DESC LIMIT 1")
+  public abstract Maybe<LogEntity> getLast();
+
   @Delete
   public abstract Completable delete(LogEntity value);
 

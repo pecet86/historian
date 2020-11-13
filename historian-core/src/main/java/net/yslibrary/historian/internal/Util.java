@@ -122,7 +122,7 @@ public class Util {
           SINGLE_EXPORT_FILE_NAME,
           R.string.historian_share_log_title,
           R.string.historian_share_log_subject,
-          "throwables"
+          CLIP_DATA_LABEL
       );
     } else {
       String throwableDetailsText = activity.getString(
@@ -189,7 +189,7 @@ public class Util {
     }
   }
   //</editor-fold>
-  
+
   //<editor-fold desc="ask">
   public static void askForConfirmationClear(@NonNull Context context, @NonNull Runnable clearElements) {
     new AlertDialog.Builder(context)
@@ -212,7 +212,24 @@ public class Util {
         })
         .setPositiveButton(R.string.historian_export, (r, t) -> exportListLog(
             activity,
-            entities))
+            entities
+        ))
+        .create()
+        .show();
+  }
+
+  public static void askForConfirmationExport(@NonNull Activity activity, LogEntity entity) {
+    new AlertDialog.Builder(activity)
+        .setCancelable(false)
+        .setTitle(R.string.historian_export)
+        .setMessage(R.string.historian_export_logs_confirmation)
+        .setNegativeButton(R.string.historian_cancel, (r, t) -> {
+        })
+        .setPositiveButton(R.string.historian_export, (r, t) -> exportSingleLog(
+            activity,
+            entity,
+            true
+        ))
         .create()
         .show();
   }

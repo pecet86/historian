@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import net.yslibrary.historian.BuildConfig;
+import net.yslibrary.historian.R;
 import net.yslibrary.historian.internal.data.LogWritingTask;
 import net.yslibrary.historian.internal.data.datebase.LogsDatabase;
 import net.yslibrary.historian.internal.data.entities.LogEntity;
@@ -29,6 +30,7 @@ import static net.yslibrary.historian.internal.Constantes.DB_NAME;
 import static net.yslibrary.historian.internal.Constantes.LOG_LEVEL;
 import static net.yslibrary.historian.internal.Util.askForConfirmationClear;
 import static net.yslibrary.historian.internal.Util.askForConfirmationExport;
+import static net.yslibrary.historian.internal.Util.toastShort;
 
 /**
  * Class HistorianTree
@@ -133,7 +135,7 @@ public class Historian {
   /**
    * Exportuj dane
    */
-  private void export(Activity activity) {
+  public void exportAll(Activity activity) {
     database
         .logEntityDao()
         .getAll()
@@ -145,9 +147,24 @@ public class Historian {
   }
 
   /**
+   * Exportuj dane
+   */
+  public void exportLast(Activity activity) {
+    database
+        .logEntityDao()
+        .getLast()
+        .subscribeOn(Schedulers.io())
+        .doOnSuccess(entity -> askForConfirmationExport(activity, entity))
+        .ignoreElement()
+        .onErrorComplete()
+        .doOnComplete(() -> toastShort(activity, R.string.historian_export_empty_text))
+        .subscribe();
+  }
+
+  /**
    * Wyczyść bazę danych
    */
-  private void clear() {
+  public void clear() {
     askForConfirmationClear(context, this::clearElements);
   }
 

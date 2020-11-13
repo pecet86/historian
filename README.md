@@ -4,6 +4,8 @@ Historian
 [![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-Historian-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5329)
 [![codecov](https://codecov.io/gh/yshrsmz/historian/branch/master/graph/badge.svg)](https://codecov.io/gh/yshrsmz/historian)
 [![](https://jitpack.io/v/pecet86/historian.svg)](https://jitpack.io/#pecet86/historian)
+![License](https://img.shields.io/github/license/ChuckerTeam/Chucker.svg)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange.svg)](http://makeapullrequest.com)
 
 Historian is a custom [Timber](https://github.com/JakeWharton/timber).Tree implementation that saves logs to SQLite, so that you can see/download the SQLite file later for debugging.
 
