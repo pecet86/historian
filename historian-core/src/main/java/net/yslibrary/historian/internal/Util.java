@@ -1,6 +1,5 @@
 package net.yslibrary.historian.internal;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -27,8 +26,10 @@ import java.util.List;
 import androidx.annotation.IntDef;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
+import androidx.annotation.UiThread;
 import androidx.core.app.ShareCompat;
 import io.reactivex.Single;
+import io.reactivex.SingleEmitter;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import lombok.experimental.UtilityClass;
 import okio.BufferedSink;
@@ -81,12 +82,10 @@ public class Util {
   }
 
   //<editor-fold desc="toast">
-  @SuppressLint({"ShowToast", "AutoDispose"})
   public static void toast(@NonNull Context context, @NonNull String message, @Duration int duration) {
     Single
-        .just(Toast.makeText(context, message, duration))
+        .create((SingleEmitter<Toast> emitter) -> emitter.onSuccess(Toast.makeText(context, message, duration)))
         .subscribeOn(AndroidSchedulers.mainThread())
-        .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(Toast::show)
         .subscribe();
   }
@@ -109,6 +108,7 @@ public class Util {
   //</editor-fold>
 
   //<editor-fold desc="export">
+  @UiThread
   public static void exportSingleLog(@NonNull Activity activity, LogEntity entity, boolean file) {
     if (entity == null) {
       toastShort(activity, R.string.historian_export_empty_text);
@@ -149,6 +149,7 @@ public class Util {
     }
   }
 
+  @UiThread
   public static void createFileToSaveBody(@NonNull Activity activity) {
     Intent intent = new Intent(INTENT_ACTION_CREATE_DOCUMENT)
         .addCategory(INTENT_CATEGORY_OPENABLE)
@@ -171,6 +172,7 @@ public class Util {
     );
   }
 
+  @UiThread
   public static void exportListLog(@NonNull Activity activity, List<LogEntity> entities) {
     if (entities == null || entities.isEmpty()) {
       toastShort(activity, R.string.historian_export_empty_text);
@@ -192,6 +194,7 @@ public class Util {
   //</editor-fold>
 
   //<editor-fold desc="ask">
+  @UiThread
   public static void askForConfirmationClear(@NonNull Context context, @NonNull Runnable clearElements) {
     new AlertDialog.Builder(context)
         .setCancelable(false)
@@ -204,6 +207,7 @@ public class Util {
         .show();
   }
 
+  @UiThread
   public static void askForConfirmationExport(@NonNull Activity activity, List<LogEntity> entities) {
     new AlertDialog.Builder(activity)
         .setCancelable(false)
@@ -219,6 +223,7 @@ public class Util {
         .show();
   }
 
+  @UiThread
   public static void askForConfirmationExport(@NonNull Activity activity, LogEntity entity) {
     new AlertDialog.Builder(activity)
         .setCancelable(false)

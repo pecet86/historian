@@ -14,7 +14,6 @@ import net.yslibrary.historian.internal.data.entities.PriorityType.LogPriority;
 import net.yslibrary.historian.internal.support.NotificationHelper;
 import net.yslibrary.historian.internal.ui.activities.MainActivity;
 
-import java.util.Collections;
 import java.util.Locale;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
@@ -22,6 +21,7 @@ import java.util.concurrent.Executors;
 import androidx.annotation.CheckResult;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import lombok.Getter;
 
@@ -140,9 +140,13 @@ public class Historian {
         .logEntityDao()
         .getAll()
         .subscribeOn(Schedulers.io())
-        .onErrorReturnItem(Collections.emptyList())
+        .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(entities -> askForConfirmationExport(activity, entities))
         .ignoreElement()
+        .onErrorComplete(throwable -> {
+          toastShort(activity, R.string.historian_export_empty_text);
+          return true;
+        })
         .subscribe();
   }
 
@@ -154,8 +158,8 @@ public class Historian {
         .logEntityDao()
         .getLast()
         .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
         .doOnSuccess(entity -> askForConfirmationExport(activity, entity))
-        .ignoreElement()
         .onErrorComplete()
         .doOnComplete(() -> toastShort(activity, R.string.historian_export_empty_text))
         .subscribe();
