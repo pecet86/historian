@@ -42,14 +42,16 @@ dependencies {
   implementation "androidx.appcompat:appcompat:${deps.appcompat}"
   implementation "com.google.android.material:material:${deps.material}"
 
+  //*
   implementation project(':historian-core')
   implementation project(':historian-tree')
   implementation project(':historian-uncaught-handler')
   implementation project(':historian-uncaught-rxjava2')
+  //*/
 
   /*
   //navigation
-  def historian_version = 'v2.1.6'
+  def historian_version = 'v2.1.9'
   implementation "com.github.pecet86.historian:historian-core:${historian_version}"
   implementation("com.github.pecet86.historian:historian-tree:${historian_version}")
   implementation("com.github.pecet86.historian:historian-uncaught-handler:${historian_version}")
