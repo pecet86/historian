@@ -1,8 +1,13 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
+apply plugin: 'com.github.dcendents.android-maven'
 
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
+
+// CI
+def isCi = "true" == System.getenv("CI")
+def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
 
 android {
   resourcePrefix config.resourcePrefix
@@ -19,9 +24,22 @@ android {
     consumerProguardFiles 'proguard-rules.pro'
   }
 
+  dexOptions {
+    // Skip pre-dexing when running on CI or when disabled via -Dpre-dex=false.
+    preDexLibraries = preDexEnabled && !isCi
+  }
+
   compileOptions {
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+  }
+
+  lintOptions {
+    abortOnError false
+  }
+
+  sourceSets {
+    main.java.srcDirs += 'src/main/java'
   }
 }
 
@@ -33,3 +51,5 @@ dependencies {
   compileOnly "org.projectlombok:lombok:${deps.lombok}"
   annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
 }
+
+apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
