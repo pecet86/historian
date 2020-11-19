@@ -20,12 +20,12 @@ task javadocJar(type: Jar, dependsOn: javadoc) {
   from javadoc.destinationDir
 }
 
-task classesJar(type: Jar) {
+/*task classesJar(type: Jar) {
   from "$buildDir/intermediates/javac/release/classes"
-}
+}*/
 
 artifacts {
-  archives classesJar
+  //archives classesJar
   archives javadocJar
   archives sourcesJar
 }
