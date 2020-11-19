@@ -21,3 +21,8 @@
 -keep interface org.parceler.Parcel
 -keep @org.parceler.Parcel class * { *; }
 -keep class **$$Parcelable { *; }
+
+-keep class * extends androidx.fragment.app.Fragment
+-keepnames class * extends android.os.Parcelable
+-keepnames class * extends java.io.Serializable
+-keepnames class androidx.navigation.fragment.NavHostFragment

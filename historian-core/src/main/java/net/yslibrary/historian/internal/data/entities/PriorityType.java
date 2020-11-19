@@ -6,6 +6,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 
 import androidx.annotation.IntDef;
+import androidx.annotation.Keep;
 import androidx.room.TypeConverter;
 
 /**
@@ -13,6 +14,7 @@ import androidx.room.TypeConverter;
  *
  * @author pecet86 - created
  */
+@Keep
 public enum PriorityType {
   UNKNOWN, VERBOSE, DEBUG, INFO, WARN, ERROR, ASSERT;
 

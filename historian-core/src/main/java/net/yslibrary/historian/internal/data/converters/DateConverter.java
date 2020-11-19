@@ -2,6 +2,7 @@ package net.yslibrary.historian.internal.data.converters;
 
 import java.util.Date;
 
+import androidx.annotation.Keep;
 import androidx.room.TypeConverter;
 
 /**
@@ -10,6 +11,7 @@ import androidx.room.TypeConverter;
  *
  * @author pecet86 - created
  */
+@Keep
 public class DateConverter {
 
   /**

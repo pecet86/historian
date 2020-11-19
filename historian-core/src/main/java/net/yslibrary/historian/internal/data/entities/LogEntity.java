@@ -9,6 +9,7 @@ import org.parceler.Parcel.Serialization;
 import java.text.DateFormat;
 import java.util.Date;
 
+import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.room.ColumnInfo;
@@ -33,6 +34,7 @@ import static android.util.Log.getStackTraceString;
 @NoArgsConstructor
 @Entity(tableName = LogsDao.TABLE)
 @Parcel(Serialization.BEAN)
+@Keep
 public class LogEntity {
 
   //<editor-fold desc="fields">
