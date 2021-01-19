@@ -30,11 +30,16 @@ public class LogListDetailsSharable implements Sharable {
     throwables
         .stream()
         .map(LogDetailsSharable::new)
-        .map(sharable -> sharable.toSharableContent(context) + "\n")
-        .forEach(content -> buffer
-            .writeUtf8(content)
-            .writeUtf8("\n" + export_separator + "\n")
-        );
+        .map(sharable -> sharable.toSharableContent(context))
+        .forEach(content -> {
+          try {
+            buffer
+                .write(content, ((Buffer) content).size())
+                .writeUtf8("\n")
+                .writeUtf8("\n" + export_separator + "\n");
+          } catch (Exception ignore) {
+          }
+        });
     buffer.writeUtf8("\n" + export_postfix + "\n");
 
     return buffer;
