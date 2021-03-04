@@ -67,7 +67,8 @@ public class LogEntity {
   //</editor-fold>
 
   @Ignore
-  public LogEntity(int priority, @Nullable String tag, @NonNull String message, @Nullable Throwable throwable) {
+  public LogEntity(int priority, @Nullable String tag, @NonNull String message,
+                   @Nullable Throwable throwable) {
     this.priority = PriorityType.getPriority(priority);
     this.tag = tag;
     this.message = message;
@@ -92,6 +93,13 @@ public class LogEntity {
 
   public String getFormatTimestamp() {
     return DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM).format(timestamp);
+  }
+
+  public LogEntity cutContentMax(int maxContentLength) {
+    if (content != null) {
+      content = content.substring(0, Math.min(content.length(), maxContentLength));
+    }
+    return this;
   }
   //</editor-fold>
 }

@@ -6,12 +6,14 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 
 import net.yslibrary.historian.R;
 import net.yslibrary.historian.internal.data.entities.LogEntity;
 import net.yslibrary.historian.internal.support.services.ClearDatabaseService;
 import net.yslibrary.historian.internal.ui.activities.BaseActivity;
 
+import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
@@ -25,12 +27,13 @@ public final class NotificationHelper {
   private final Context context;
   private final NotificationManager notificationManager;
   private final PendingIntent intent;
+  private final String notificationChannelId;
 
   public NotificationHelper(Context context) {
     this.context = context;
 
     notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-    createOrGetNotificationChannel();
+    notificationChannelId = createOrGetNotificationChannel(CHANNEL_ID);
 
     intent = PendingIntent.getActivity(
         context,
@@ -43,7 +46,7 @@ public final class NotificationHelper {
   public void show(LogEntity throwable) {
     if (!BaseActivity.isInForeground) {
       Notification notification = new NotificationCompat
-          .Builder(context, CHANNEL_ID)
+          .Builder(context, notificationChannelId)
           .setContentIntent(intent)
           .setLocalOnly(true)
           .setSmallIcon(R.drawable.historian_ic_log_notifications)
@@ -70,16 +73,22 @@ public final class NotificationHelper {
     return new NotificationCompat.Action(R.drawable.historian_ic_delete_white, clearTitle, intent);
   }
 
-  private void createOrGetNotificationChannel() {
-    NotificationChannel channel = notificationManager.getNotificationChannel(CHANNEL_ID);
-    if (channel == null) {
-      channel = new NotificationChannel(
-          CHANNEL_ID,
-          context.getString(R.string.historian_throwable_notification_category),
-          NotificationManager.IMPORTANCE_LOW
-      );
-      notificationManager.createNotificationChannel(channel);
+  private String createOrGetNotificationChannel(@NonNull String notificationChannelId) {
+    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+      NotificationChannel channel = notificationManager.getNotificationChannel(notificationChannelId);
+      if (channel == null) {
+        channel = new NotificationChannel(
+            notificationChannelId,
+            context.getString(R.string.historian_throwable_notification_category),
+            NotificationManager.IMPORTANCE_LOW
+        );
+        notificationManager.createNotificationChannel(channel);
+      }
+    } else {
+      notificationChannelId = "default";
     }
+
+    return notificationChannelId;
   }
 
   public void dismissNotification() {

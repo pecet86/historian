@@ -42,6 +42,7 @@ public class App extends Application {
         .logLevel(Log.ERROR) //minimal log lever
         .notification(true) //show notification
         .retentionPeriod(Period.ONE_WEEK) //when delete old
+        .maxContentLength(200) //max size save body
         .callbacks(new Historian.Callbacks() { //added
           @Override
           public void onSuccess() {

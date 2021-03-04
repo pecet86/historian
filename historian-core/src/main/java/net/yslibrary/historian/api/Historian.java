@@ -41,6 +41,7 @@ import static net.yslibrary.historian.internal.Util.toastShort;
 public class Historian {
 
   private static final String TAG = Historian.class.getSimpleName();
+  private static final int MAX_CONTENT_LENGTH = 250000;
 
   private final Context context;
   @Getter
@@ -49,6 +50,8 @@ public class Historian {
   private final boolean debug;
   @Getter
   private final boolean notification;
+  @Getter
+  private final int maxContentLength;
   private final Callbacks callbacks;
 
   private final LogsDatabase database;
@@ -61,6 +64,7 @@ public class Historian {
     logLevel = builder.logLevel;
     debug = builder.debug;
     notification = builder.notification;
+    maxContentLength = builder.maxContentLength;
     callbacks = (builder.callbacks == null) ? new DefaultCallbacks(debug) : builder.callbacks;
 
     database = LogsDatabase.getInstance(context, DB_NAME);
@@ -104,7 +108,13 @@ public class Historian {
       return;
     }
 
-    LogEntity logEntity = new LogEntity(priority, tag, message, throwable);
+    LogEntity logEntity = new LogEntity(
+        priority,
+        tag,
+        message,
+        throwable
+    )
+        .cutContentMax(maxContentLength);
 
     //save
     executorService.execute(new LogWritingTask(
@@ -234,6 +244,7 @@ public class Historian {
     private final Context context;
     private int logLevel = LOG_LEVEL;
     private boolean debug = false;
+    private int maxContentLength = MAX_CONTENT_LENGTH;
     private boolean notification = BuildConfig.notification;
     private Period retentionPeriod = Period.ONE_WEEK;
     private Callbacks callbacks = null;
@@ -287,6 +298,20 @@ public class Historian {
     @CheckResult
     public Builder notification(boolean notification) {
       this.notification = notification;
+      return this;
+    }
+
+    /**
+     * Enable/disable Historian's size entity body .
+     * <p>
+     * Default is {@link Historian#MAX_CONTENT_LENGTH}
+     *
+     * @param maxContentLength max body size
+     * @return Builder
+     */
+    @CheckResult
+    public Builder maxContentLength(int maxContentLength) {
+      this.maxContentLength = maxContentLength;
       return this;
     }
 
