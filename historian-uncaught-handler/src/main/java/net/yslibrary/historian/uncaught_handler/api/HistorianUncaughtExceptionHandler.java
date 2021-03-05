@@ -89,6 +89,12 @@ public class HistorianUncaughtExceptionHandler implements UncaughtExceptionHandl
   @Override
   public void uncaughtException(@NonNull Thread t, @NonNull Throwable th) {
     try {
+      th = crashConfig.getMapErrorHandler().apply(th);
+      if (!crashConfig.getTestErrorHandler().test(th)) {
+        //ignore
+        return;
+      }
+
       historian.log(Log.ERROR, "UncaughtException", th.getMessage(), th);
       if (crashConfig.getEventListener() != null) {
         crashConfig.getEventListener().onLaunchErrorActivity();

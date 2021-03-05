@@ -3,6 +3,8 @@ package net.yslibrary.historian.uncaught_handler.api;
 import net.yslibrary.historian.uncaught_handler.R;
 
 import java.io.Serializable;
+import java.util.function.Function;
+import java.util.function.Predicate;
 
 import androidx.annotation.DrawableRes;
 import androidx.annotation.NonNull;
@@ -44,6 +46,18 @@ public class CrashConfig implements Serializable {
    */
   @DrawableRes
   private Integer imagePath = R.drawable.historian_cow_error;
+
+  /**
+   * mapping to unpack the error
+   */
+  @NonNull
+  private Function<Throwable, Throwable> mapErrorHandler = Function.identity();
+
+  /**
+   * some error can be ignored
+   */
+  @NonNull
+  private Predicate<Throwable> testErrorHandler = throwable -> true;
 
   public interface EventListener extends Serializable {
     void onLaunchErrorActivity();
