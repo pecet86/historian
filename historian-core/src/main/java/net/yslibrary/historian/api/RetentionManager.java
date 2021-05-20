@@ -72,6 +72,8 @@ public class RetentionManager {
   }
 
   private void deleteSince(long threshold) {
+    RepositoryProvider.initialize(context);
+
     RepositoryProvider
         .getDatabase()
         .logEntityDao()
