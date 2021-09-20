@@ -1,6 +1,6 @@
 ext.deps = [
-    appcompat  : '1.2.0',
-    material   : '1.4.0-beta01',
+    appcompat  : '1.3.1',
+    material   : '1.4.0',
     timber     : '4.7.1',
     stetho     : '1.5.1',
     espresso   : '1.2.0',
@@ -11,7 +11,7 @@ ext.deps = [
     rxjava     : '2.2.21',
     rxandroid  : '2.1.1',
     annotation : '1.2.0',
-    lifecycle  : '2.2.0',
+    lifecycle  : '2.3.1',
     navigation : '2.3.5',
     parceler   : '1.1.13',
 ]
