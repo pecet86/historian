@@ -1,7 +1,7 @@
 ext.deps = [
     appcompat  : '1.3.1',
     material   : '1.4.0',
-    timber     : '4.7.1',
+    timber     : '5.0.1',
     stetho     : '1.5.1',
     espresso   : '1.2.0',
     junit      : '4.13.1',
