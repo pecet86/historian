@@ -197,10 +197,27 @@ public class HistorianTree extends Timber.Tree {
   }
   //</editor-fold>
 
+  private Method getMethodFromTree(String name) {
+    try {
+      Method method = Timber.Tree.class.getDeclaredMethod(name);
+      method.setAccessible(true);
+      return method;
+    } catch (Exception e) {
+      return null;
+    }
+  }
+
   private String getTagValue() {
     try {
-      Method getTag = Timber.Tree.class.getDeclaredMethod("getTag");
-      getTag.setAccessible(true);
+      Method getTag = getMethodFromTree("getTag"); //< 5.0.0
+      if (getTag == null) {
+        getTag = getMethodFromTree("getTag$timber_release"); // >= 5.0.0
+      }
+
+      if (getTag == null) {
+        System.err.println("`getTag` or `getTag$timber_release` not exist");
+        return null;
+      }
       return (String) getTag.invoke(this);
     } catch (Exception e) {
       e.printStackTrace();
