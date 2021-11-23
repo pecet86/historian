@@ -27,6 +27,7 @@ import lombok.With;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class CrashConfig implements Serializable {
 
+  private static final long serialVersionUID = 65514326969573797L;
   private EventListener eventListener;
 
   /**
