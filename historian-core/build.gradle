@@ -14,7 +14,7 @@ buildscript {
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: "androidx.navigation.safeargs"
-//apply plugin: 'com.github.dcendents.android-maven'
+apply plugin: 'maven-publish'
 
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
