@@ -48,7 +48,13 @@ android {
 
 dependencies {
   api project(':historian-core')
-  api "com.jakewharton.timber:timber:${deps.timber}"
+  api project(':historian-uncaught-handler')
+
+  implementation "androidx.annotation:annotation:${deps.annotation}"
+
+  //RxJava
+  api "io.reactivex.rxjava3:rxjava:${deps.rxjava3}"
+  api "io.reactivex.rxjava3:rxandroid:${deps.rxandroid3}"
 
   //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:${deps.lombok}"

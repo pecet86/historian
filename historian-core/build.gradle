@@ -7,14 +7,14 @@ buildscript {
     maven { url 'https://plugins.gradle.org/m2/' }
   }
   dependencies {
-    classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.3.5"
+    classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2'
   }
 }
 
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: "androidx.navigation.safeargs"
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
 
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
@@ -57,28 +57,31 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    // Flag to enable support for the new language APIs
+    //coreLibraryDesugaringEnabled true
+    //https://developer.android.com/studio/write/java8-support-table
+    sourceCompatibility = config.sourceCompatibility
+    targetCompatibility = config.targetCompatibility
   }
 
   buildFeatures {
-    dataBinding = true
-    viewBinding = true
-  }
-
-  lintOptions {
-    abortOnError false
+    dataBinding true
+    viewBinding true
   }
 
   sourceSets {
     main.java.srcDirs += 'src/main/java'
   }
+
+  lint {
+    abortOnError false
+  }
 }
 
 dependencies {
   implementation 'androidx.recyclerview:recyclerview:1.2.1'
-  implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
-  implementation 'com.squareup.okio:okio:3.0.0-alpha.5'
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.3'
+  implementation 'com.squareup.okio:okio:3.0.0'
   implementation "com.google.android.material:material:${deps.material}"
   implementation "androidx.annotation:annotation:${deps.annotation}"
 
@@ -98,6 +101,7 @@ dependencies {
   //android room
   implementation "androidx.room:room-runtime:${deps.room}"
   implementation "androidx.room:room-rxjava2:${deps.room}"
+  implementation "androidx.room:room-rxjava3:${deps.room}"
   annotationProcessor "androidx.room:room-compiler:${deps.room}"
 
   //parceler
@@ -105,8 +109,10 @@ dependencies {
   annotationProcessor "org.parceler:parceler:${deps.parceler}"
 
   //RxJava
-  implementation "io.reactivex.rxjava2:rxjava:${deps.rxjava}"
-  implementation "io.reactivex.rxjava2:rxandroid:${deps.rxandroid}"
+  implementation "io.reactivex.rxjava2:rxjava:${deps.rxjava2}"
+  implementation "io.reactivex.rxjava2:rxandroid:${deps.rxandroid2}"
+  implementation "io.reactivex.rxjava3:rxjava:${deps.rxjava3}"
+  implementation "io.reactivex.rxjava3:rxandroid:${deps.rxandroid3}"
   implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.1'
 
   //navigation

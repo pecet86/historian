@@ -1,6 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
-apply plugin: 'com.github.dcendents.android-maven'
+//apply plugin: 'com.github.dcendents.android-maven'
 
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
@@ -18,7 +18,7 @@ android {
   defaultConfig {
     minSdkVersion config.minSdkVersion
     targetSdkVersion config.targetSdkVersion
-    versionCode config.versionCode
+    versionCode versionCode()
     versionName versionName()
 
     consumerProguardFiles 'proguard-rules.pro'
@@ -30,8 +30,11 @@ android {
   }
 
   compileOptions {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+    // Flag to enable support for the new language APIs
+    //coreLibraryDesugaringEnabled true
+    //https://developer.android.com/studio/write/java8-support-table
+    sourceCompatibility = config.sourceCompatibility
+    targetCompatibility = config.targetCompatibility
   }
 
   lintOptions {
@@ -50,8 +53,8 @@ dependencies {
   implementation "androidx.annotation:annotation:${deps.annotation}"
 
   //RxJava
-  api "io.reactivex.rxjava2:rxjava:${deps.rxjava}"
-  api "io.reactivex.rxjava2:rxandroid:${deps.rxandroid}"
+  api "io.reactivex.rxjava2:rxjava:${deps.rxjava2}"
+  api "io.reactivex.rxjava2:rxandroid:${deps.rxandroid2}"
 
   //noinspection AnnotationProcessorOnCompilePath
   compileOnly "org.projectlombok:lombok:${deps.lombok}"

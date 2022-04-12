@@ -1,7 +1,5 @@
 package net.yslibrary.historian.uncaught_handler.api;
 
-import net.yslibrary.historian.uncaught_handler.R;
-
 import java.io.Serializable;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -15,12 +13,15 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.With;
 
+import static net.yslibrary.historian.uncaught_handler.R.drawable.historian_cow_error;
+
 /**
  * Class HistorianUncaughtExceptionHandler
  *
  * @author Selim - created
  * @author pecet86 - modification
  */
+@SuppressWarnings("FieldMayBeFinal")
 @Getter
 @With
 @NoArgsConstructor
@@ -46,19 +47,19 @@ public class CrashConfig implements Serializable {
    * @param DetailsButonText ur error image change what you want. MUST BE "R.drawable.example" or like that
    */
   @DrawableRes
-  private Integer imagePath = R.drawable.historian_cow_error;
+  private Integer imagePath = historian_cow_error;
 
   /**
    * mapping to unpack the error
    */
   @NonNull
-  private Function<Throwable, Throwable> mapErrorHandler = Function.identity();
+  private transient Function<Throwable, Throwable> mapErrorHandler = throwable -> throwable;
 
   /**
    * some error can be ignored
    */
   @NonNull
-  private Predicate<Throwable> testErrorHandler = throwable -> true;
+  private transient Predicate<Throwable> testErrorHandler = throwable -> true;
 
   public interface EventListener extends Serializable {
     void onLaunchErrorActivity();

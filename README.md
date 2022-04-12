@@ -7,7 +7,8 @@ Historian
 ![License](https://img.shields.io/github/license/pecet86/historian.svg)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-orange.svg)](http://makeapullrequest.com)
 
-Historian is a custom [Timber](https://github.com/JakeWharton/timber).Tree implementation that saves logs to SQLite, so that you can see/download the SQLite file later for debugging.
+Historian is a custom [Timber](https://github.com/JakeWharton/timber).Tree implementation that saves
+logs to SQLite, so that you can see/download the SQLite file later for debugging.
 
 This library is primarily made to help debugging crash in consumers' devices.
 
@@ -23,6 +24,7 @@ dependencies {
   implementation "com.github.pecet86.historian:historian-tree:$historian_version" //connect to timber
   implementation "com.github.pecet86.historian:historian-uncaught-handler:$historian_version" //crash activity
   implementation "com.github.pecet86.historian:historian-uncaught-rxjava2:$historian_version" //RaJava2 global error
+  implementation "com.github.pecet86.historian:historian-uncaught-rxjava3:$historian_version" //RaJava3 global error
   implementation 'com.jakewharton.timber:timber:4.7.1'
 }
 
@@ -39,50 +41,50 @@ android {
 ```java
 class App extends Application {
 
-    private Historian historian;
+  private Historian historian;
 
-      @Override
-      public void onCreate() {
-        super.onCreate();
+  @Override
+  public void onCreate() {
+    super.onCreate();
 
-        historian = Historian
-            .builder(this)
-            .debug(true)
-            .logLevel(Log.INFO) //minimal log lever
-            .notification(true) //show notification
-            .retentionPeriod(Period.ONE_WEEK) //when delete old
-            .callbacks(new Historian.Callbacks() { //added
-              @Override
-              public void onSuccess() {
-                //is added to datebase
-              }
+    historian = Historian
+        .builder(this)
+        .debug(true)
+        .logLevel(Log.INFO) //minimal log lever
+        .notification(true) //show notification
+        .retentionPeriod(Period.ONE_WEEK) //when delete old
+        .callbacks(new Historian.Callbacks() { //added
+          @Override
+          public void onSuccess() {
+            //is added to datebase
+          }
 
-              @Override
-              public void onFailure(Throwable throwable) {
-                //is error to datebase
-              }
-            })
-            .build();
+          @Override
+          public void onFailure(Throwable throwable) {
+            //is error to datebase
+          }
+        })
+        .build();
 
-        //CrashActivity
-        HistorianUncaughtExceptionHandler.install(this, historian,
-            new CrashConfig()
-                .withRestartActivityEnable(true)
-                .withCloseActivityEnable(true)
-                .withImagePath(R.drawable.historian_cow_error)
+    //CrashActivity
+    HistorianUncaughtExceptionHandler.install(this, historian,
+        new CrashConfig()
+            .withRestartActivityEnable(true)
+            .withCloseActivityEnable(true)
+            .withImagePath(R.drawable.historian_cow_error)
 
-                .withRestartActivityClass(MainActivity.class)
-        );
+            .withRestartActivityClass(MainActivity.class)
+    );
 
-        //Global onError
-        HistorianRxJavaExceptionHandler.install(
-            HistorianUncaughtExceptionHandler.getInstance()
-        );
+    //Global onError
+    HistorianRxJavaExceptionHandler.install(
+        HistorianUncaughtExceptionHandler.getInstance()
+    );
 
-        Timber.plant(new Timber.DebugTree());
-        //install to Timber
-        Timber.plant(HistorianTree.with(historian));
-    }
+    Timber.plant(new Timber.DebugTree());
+    //install to Timber
+    Timber.plant(HistorianTree.with(historian));
+  }
 }
 ```
 

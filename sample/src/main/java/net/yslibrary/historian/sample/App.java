@@ -8,7 +8,8 @@ import net.yslibrary.historian.api.Historian;
 import net.yslibrary.historian.tree.HistorianTree;
 import net.yslibrary.historian.uncaught_handler.api.CrashConfig;
 import net.yslibrary.historian.uncaught_handler.api.HistorianUncaughtExceptionHandler;
-import net.yslibrary.historian.uncaught_rxjava2.HistorianRxJavaExceptionHandler;
+import net.yslibrary.historian.uncaught_rxjava2.HistorianRxJava2ExceptionHandler;
+import net.yslibrary.historian.uncaught_rxjava3.HistorianRxJava3ExceptionHandler;
 
 import androidx.annotation.NonNull;
 import timber.log.Timber;
@@ -66,7 +67,11 @@ public class App extends Application {
     );
 
     //Global onError
-    HistorianRxJavaExceptionHandler.install(
+    HistorianRxJava2ExceptionHandler.install(
+        HistorianUncaughtExceptionHandler.getInstance()
+    );
+
+    HistorianRxJava3ExceptionHandler.install(
         HistorianUncaughtExceptionHandler.getInstance()
     );
 

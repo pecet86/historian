@@ -1,29 +1,29 @@
-package net.yslibrary.historian.uncaught_rxjava2;
+package net.yslibrary.historian.uncaught_rxjava3;
 
 import net.yslibrary.historian.uncaught_handler.api.HistorianUncaughtExceptionHandler;
 
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
-import io.reactivex.functions.Consumer;
-import io.reactivex.plugins.RxJavaPlugins;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.plugins.RxJavaPlugins;
 
 /**
- * Class HistorianRxJavaExceptionHandler
+ * Class HistorianRxJava3ExceptionHandler
  *
  * @author pecet86 - created
  */
 @Keep
-public class HistorianRxJavaExceptionHandler implements Consumer<Throwable> {
+public class HistorianRxJava3ExceptionHandler implements Consumer<Throwable> {
 
-  private static HistorianRxJavaExceptionHandler INSTANCE;
+  private static HistorianRxJava3ExceptionHandler INSTANCE;
   private final HistorianUncaughtExceptionHandler exceptionHandler;
 
-  private HistorianRxJavaExceptionHandler(HistorianUncaughtExceptionHandler exceptionHandler) {
+  private HistorianRxJava3ExceptionHandler(HistorianUncaughtExceptionHandler exceptionHandler) {
     this.exceptionHandler = exceptionHandler;
   }
 
-  private static HistorianRxJavaExceptionHandler create(@NonNull HistorianUncaughtExceptionHandler handler) {
-    return new HistorianRxJavaExceptionHandler(handler);
+  private static HistorianRxJava3ExceptionHandler create(@NonNull HistorianUncaughtExceptionHandler handler) {
+    return new HistorianRxJava3ExceptionHandler(handler);
   }
 
   public static void install(@NonNull HistorianUncaughtExceptionHandler handler) {
@@ -31,7 +31,7 @@ public class HistorianRxJavaExceptionHandler implements Consumer<Throwable> {
       return;
     }
 
-    HistorianRxJavaExceptionHandler exceptionHandler = create(handler);
+    HistorianRxJava3ExceptionHandler exceptionHandler = create(handler);
     RxJavaPlugins.setErrorHandler(exceptionHandler);
 
     INSTANCE = exceptionHandler;

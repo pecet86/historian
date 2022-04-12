@@ -8,7 +8,6 @@ import net.yslibrary.historian.api.Historian;
 import java.util.concurrent.atomic.AtomicLong;
 
 import androidx.appcompat.app.AppCompatActivity;
-import io.reactivex.Completable;
 import timber.log.Timber;
 
 /**
@@ -47,9 +46,14 @@ public class MainActivity extends AppCompatActivity {
       throw new RuntimeException("X");
     });
 
-    Button testRxjavaException = findViewById(R.id.test_rxjava_exception);
-    testRxjavaException.setOnClickListener(view -> {
-      Completable.error(new RuntimeException("X")).subscribe();
+    Button testRxJava2Exception = findViewById(R.id.test_rxjava2_exception);
+    testRxJava2Exception.setOnClickListener(view -> {
+      io.reactivex.Completable.error(new RuntimeException("X")).subscribe();
+    });
+
+    Button testRxJava3Exception = findViewById(R.id.test_rxjava3_exception);
+    testRxJava3Exception.setOnClickListener(view -> {
+      io.reactivex.rxjava3.core.Completable.error(new RuntimeException("X")).subscribe();
     });
   }
 

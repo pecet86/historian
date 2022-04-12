@@ -39,9 +39,15 @@
       android:text="Test uncaught exception" />
 
   <Button
-      android:id="@+id/test_rxjava_exception"
+      android:id="@+id/test_rxjava2_exception"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:text="Test uncaught RxJava exception" />
+      android:text="Test uncaught RxJava2 exception" />
+
+  <Button
+      android:id="@+id/test_rxjava3_exception"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:text="Test uncaught RxJava3 exception" />
 
 </LinearLayout>
