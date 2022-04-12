@@ -3,7 +3,6 @@ package net.yslibrary.historian.uncaught_handler.api;
 import android.app.Application;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import net.yslibrary.historian.api.Historian;
 import net.yslibrary.historian.internal.data.entities.LogEntity;
@@ -23,6 +22,7 @@ import static android.content.Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS;
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
 import static android.content.Intent.FLAG_ACTIVITY_NO_HISTORY;
 import static android.content.Intent.FLAG_ACTIVITY_TASK_ON_HOME;
+import static android.util.Log.ERROR;
 import static java.lang.Thread.getDefaultUncaughtExceptionHandler;
 import static net.yslibrary.historian.uncaught_handler.internal.Constantes.CONFIGURATION_KEY;
 import static net.yslibrary.historian.uncaught_handler.internal.Constantes.STACKTRACE_KEY;
@@ -82,7 +82,7 @@ public class HistorianUncaughtExceptionHandler implements UncaughtExceptionHandl
 
     return new Intent(context, UncaughtActivity.class)
         .setFlags(flags)
-        .putExtra(STACKTRACE_KEY, Parcels.wrap(new LogEntity(Log.ERROR, "UncaughtException", th.getMessage(), th)))
+        .putExtra(STACKTRACE_KEY, Parcels.wrap(new LogEntity(ERROR, "UncaughtException", getMessage(th), th)))
         .putExtra(CONFIGURATION_KEY, crashConfig);
   }
 
@@ -95,7 +95,7 @@ public class HistorianUncaughtExceptionHandler implements UncaughtExceptionHandl
         return;
       }
 
-      historian.log(Log.ERROR, "UncaughtException", th.getMessage(), th);
+      historian.log(ERROR, "UncaughtException", getMessage(th), th);
       if (crashConfig.getEventListener() != null) {
         crashConfig.getEventListener().onLaunchErrorActivity();
       }
@@ -110,5 +110,10 @@ public class HistorianUncaughtExceptionHandler implements UncaughtExceptionHandl
         handler.uncaughtException(t, th);
       }
     }
+  }
+
+  private static String getMessage(@NonNull Throwable th) {
+    String message = th.getLocalizedMessage();
+    return message != null ? message : th.toString();
   }
 }

@@ -25,13 +25,13 @@ dependencies {
   implementation "com.github.pecet86.historian:historian-uncaught-handler:$historian_version" //crash activity
   implementation "com.github.pecet86.historian:historian-uncaught-rxjava2:$historian_version" //RaJava2 global error
   implementation "com.github.pecet86.historian:historian-uncaught-rxjava3:$historian_version" //RaJava3 global error
-  implementation 'com.jakewharton.timber:timber:4.7.1'
+  implementation 'com.jakewharton.timber:timber:5.0.1'
 }
 
 android {
   buildFeatures {
-    dataBinding = true
-    viewBinding = true
+    dataBinding true
+    viewBinding true
   }
 }
 ```
@@ -77,7 +77,10 @@ class App extends Application {
     );
 
     //Global onError
-    HistorianRxJavaExceptionHandler.install(
+    HistorianRxJava2ExceptionHandler.install(
+        HistorianUncaughtExceptionHandler.getInstance()
+    );
+    HistorianRxJava3ExceptionHandler.install(
         HistorianUncaughtExceptionHandler.getInstance()
     );
 
@@ -92,6 +95,7 @@ class App extends Application {
 
 - use [Android Room](https://developer.android.com/topic/libraries/architecture/room)
 - use [ReactiveX](https://github.com/ReactiveX/RxJava/tree/2.x)
+- use [ReactiveX](https://github.com/ReactiveX/RxJava/tree/3.x)
 - use [Timber](https://github.com/JakeWharton/timber)
 - use [Okio](https://github.com/square/okio)
 
@@ -99,7 +103,7 @@ class App extends Application {
 
 ```
 Copyright 2017 Shimizu Yasuhiro (yshrsmz)
-Copyright 2020 Paweł Cal (pecet86)
+Copyright 2020-2022 Paweł Cal (pecet86)
 
 Licensed under the Apache License, Version 2.0 (the "License");
 you may not use this file except in compliance with the License.
