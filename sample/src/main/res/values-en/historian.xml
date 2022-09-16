@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="historian_crash_text">An error has occurred, but we have a solution to your problem.\nPlease click on `Details` and send the text of the error with its description to\nsupport@domain.pl.\nThank you very much.</string>
+</resources>

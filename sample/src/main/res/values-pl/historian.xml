@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <string name="historian_crash_text">Wystąpił błąd, ale mamy rozwiązanie na Twój problem.\nProszę kliknij `Szczegóły` i wyślij treść błedu z jego opisem na\nwsparcie@domain.pl.\nBardzo dziękujemy.</string>
+</resources>

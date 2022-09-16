@@ -1,4 +1,4 @@
 <resources>
-  <string name="app_name">Historian Sample</string>
-  <string name="main_activity_name">Sample</string>
+  <string name="app_name" translatable="false">Historian Sample</string>
+  <string name="main_activity_name" translatable="false">Sample</string>
 </resources>

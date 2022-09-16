@@ -1,4 +1,4 @@
 <resources>
 
-  <style name="Historian.NoTitleBar" parent="Theme.AppCompat.NoActionBar" />
+  <style name="Historian.NoTitleBar" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
 </resources>

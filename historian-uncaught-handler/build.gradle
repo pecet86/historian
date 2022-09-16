@@ -53,6 +53,8 @@ android {
 
 dependencies {
   implementation "androidx.appcompat:appcompat:${deps.appcompat}"
+  implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+  implementation "com.google.android.material:material:${deps.material}"
 
   api project(':historian-core')
 

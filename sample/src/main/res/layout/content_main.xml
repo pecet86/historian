@@ -14,37 +14,37 @@
     tools:showIn="@layout/activity_main"
     android:orientation="vertical">
 
-  <Button
+  <com.google.android.material.button.MaterialButton
       android:id="@+id/launch_directly"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Launch Historian directly" />
 
-  <Button
+  <com.google.android.material.button.MaterialButton
       android:id="@+id/test_simple"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Test simple" />
 
-  <Button
+  <com.google.android.material.button.MaterialButton
       android:id="@+id/test_exception"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Test exception" />
 
-  <Button
+  <com.google.android.material.button.MaterialButton
       android:id="@+id/test_gloabl_exception"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Test uncaught exception" />
 
-  <Button
+  <com.google.android.material.button.MaterialButton
       android:id="@+id/test_rxjava2_exception"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:text="Test uncaught RxJava2 exception" />
 
-  <Button
+  <com.google.android.material.button.MaterialButton
       android:id="@+id/test_rxjava3_exception"
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
