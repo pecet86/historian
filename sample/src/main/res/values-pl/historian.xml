@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="historian_crash_text">Wystąpił błąd, ale mamy rozwiązanie na Twój problem.\nProszę kliknij `Szczegóły` i wyślij treść błedu z jego opisem na\nwsparcie@domain.pl.\nBardzo dziękujemy.</string>
+
+  <color name="historian_color_primary">@color/colorPrimary</color>
+  <color name="historian_color_primary_dark">@color/colorPrimaryDark</color>
+  <color name="historian_color_accent">@color/colorAccent</color>
 </resources>

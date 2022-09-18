@@ -1,4 +1,8 @@
 <resources>
 
-  <style name="Historian.NoTitleBar" parent="Theme.MaterialComponents.DayNight.NoActionBar" />
+  <style name="Historian.NoTitleBar" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <item name="colorPrimary">@color/historian_color_primary</item>
+    <item name="colorPrimaryDark">@color/historian_color_primary_dark</item>
+    <item name="colorAccent">@color/historian_color_accent</item>
+  </style>
 </resources>

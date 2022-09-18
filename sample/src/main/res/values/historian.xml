@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
   <string name="historian_crash_text">An error has occurred, but we have a solution to your problem.\nPlease click on `Details` and send the text of the error with its description to\nsupport@domain.pl.\nThank you very much.</string>
+
+  <color name="historian_color_primary">@color/colorPrimary</color>
+  <color name="historian_color_primary_dark">@color/colorPrimaryDark</color>
+  <color name="historian_color_accent">@color/colorAccent</color>
 </resources>
