@@ -17,6 +17,9 @@ import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
 
+import static android.app.PendingIntent.FLAG_IMMUTABLE;
+import static android.app.PendingIntent.FLAG_ONE_SHOT;
+import static android.app.PendingIntent.FLAG_UPDATE_CURRENT;
 import static net.yslibrary.historian.api.Historian.getLaunchIntent;
 import static net.yslibrary.historian.internal.Constantes.CHANNEL_ID;
 import static net.yslibrary.historian.internal.Constantes.INTENT_REQUEST_CODE;
@@ -39,7 +42,7 @@ public final class NotificationHelper {
         context,
         NOTIFICATION_ID,
         getLaunchIntent(context),
-        PendingIntent.FLAG_UPDATE_CURRENT
+        FLAG_UPDATE_CURRENT | FLAG_IMMUTABLE
     );
   }
 
@@ -68,7 +71,7 @@ public final class NotificationHelper {
         context,
         INTENT_REQUEST_CODE,
         deleteIntent,
-        PendingIntent.FLAG_ONE_SHOT
+        FLAG_ONE_SHOT | FLAG_IMMUTABLE
     );
     return new NotificationCompat.Action(R.drawable.historian_ic_delete_white, clearTitle, intent);
   }

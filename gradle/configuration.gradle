@@ -2,7 +2,7 @@ ext.config = [
     compileSdkVersion  : 31,
     buildToolsVersion  : '33.0.0',
     minSdkVersion      : 24,
-    targetSdkVersion   : 30,
+    targetSdkVersion   : 31,
     resourcePrefix     : 'historian_',
     sourceCompatibility: JavaVersion.VERSION_11,
     targetCompatibility: JavaVersion.VERSION_11,

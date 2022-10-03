@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-  <color name="historian_color_primary">@color/design_dark_default_color_primary</color>
-  <color name="historian_color_primary_dark">@color/design_dark_default_color_primary_dark</color>
-  <color name="historian_color_accent">@color/design_dark_default_color_secondary</color>
-</resources>

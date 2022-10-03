@@ -3,4 +3,7 @@
   <color name="historian_crash_text">#000000</color>
   <color name="historian_crash_text_backgorund">#4DFFFFFF</color>
   <color name="historian_backgorund">#ffffff</color>
+  <color name="historian_color_primary">@color/design_dark_default_color_primary</color>
+  <color name="historian_color_primary_dark">@color/design_dark_default_color_primary_dark</color>
+  <color name="historian_color_accent">@color/design_dark_default_color_secondary</color>
 </resources>
