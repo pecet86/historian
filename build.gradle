@@ -22,7 +22,8 @@ buildscript {
 
 allprojects {
   group = GROUP
-  
+  version = versionName()
+
   repositories {
     mavenLocal()
     mavenCentral()
