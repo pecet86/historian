@@ -5,14 +5,13 @@ apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
+  namespace 'net.yslibrary.historian.sample'
   compileSdkVersion config.compileSdkVersion
   buildToolsVersion config.buildToolsVersion
 
   defaultConfig {
     minSdkVersion config.minSdkVersion
     targetSdkVersion config.targetSdkVersion
-    versionCode versionCode()
-    versionName versionName()
     applicationId "net.yslibrary.historian.sample"
   }
 

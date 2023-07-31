@@ -5,28 +5,23 @@ apply plugin: 'maven-publish'
 apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
-// CI
-def isCi = "true" == System.getenv("CI")
-def preDexEnabled = "true" == System.getProperty("pre-dex", "true")
-
 android {
+  namespace 'net.yslibrary.historian.tree'
   resourcePrefix config.resourcePrefix
-
   compileSdkVersion config.compileSdkVersion
   buildToolsVersion config.buildToolsVersion
 
   defaultConfig {
     minSdkVersion config.minSdkVersion
     targetSdkVersion config.targetSdkVersion
-    versionCode versionCode()
-    versionName versionName()
 
     consumerProguardFiles 'proguard-rules.pro'
   }
 
-  dexOptions {
-    // Skip pre-dexing when running on CI or when disabled via -Dpre-dex=false.
-    preDexLibraries = preDexEnabled && !isCi
+  publishing {
+    // Publishes "fullRelease" build variant with "fullRelease" component created by
+    // Android Gradle plugin
+    singleVariant("release")
   }
 
   compileOptions {
@@ -37,12 +32,12 @@ android {
     targetCompatibility = config.targetCompatibility
   }
 
-  lintOptions {
-    abortOnError false
-  }
-
   sourceSets {
     main.java.srcDirs += 'src/main/java'
+  }
+
+  lint {
+    abortOnError false
   }
 }
 
