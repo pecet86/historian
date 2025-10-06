@@ -1,12 +1,12 @@
+buildCache {
+  local {
+    directory = new File(rootDir, '.gradle/build-cache')
+  }
+}
+
 include ':historian-core'
 include ':historian-tree'
 include ':historian-uncaught-handler'
 include ':historian-uncaught-rxjava2'
 include ':historian-uncaught-rxjava3'
 include ':sample'
-buildCache {
-  local {
-    directory = new File(rootDir, '.gradle/build-cache')
-    removeUnusedEntriesAfterDays = 30
-  }
-}

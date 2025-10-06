@@ -12,6 +12,9 @@ android {
   defaultConfig {
     minSdkVersion config.minSdkVersion
     targetSdkVersion config.targetSdkVersion
+    versionCode versionCode()
+    versionName versionName()
+
     applicationId "net.yslibrary.historian.sample"
   }
 
@@ -35,8 +38,11 @@ android {
   }
 
   buildFeatures {
+    compose true
+    //noinspection DataBindingWithoutKapt
     dataBinding true
     viewBinding true
+    buildConfig true
   }
 }
 
