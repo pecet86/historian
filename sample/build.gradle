@@ -1,7 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'com.github.ben-manes.versions'
 
-apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
@@ -47,8 +46,8 @@ android {
 }
 
 dependencies {
-  implementation "androidx.appcompat:appcompat:${deps.appcompat}"
-  implementation "com.google.android.material:material:${deps.material}"
+  implementation libs.androidx.appcompat
+  implementation libs.android.material
 
   //*
   implementation project(':historian-core')

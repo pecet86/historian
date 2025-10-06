@@ -1,3 +1,38 @@
+//https://docs.gradle.org/current/userguide/upgrading_version_8.html#changes_8.4
+pluginManagement {
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    google()
+    maven {
+      name 'jitpack.io'
+      url 'https://jitpack.io'
+    }
+    maven {
+      name 'plugins.gradle.org'
+      url 'https://plugins.gradle.org/m2/'
+    }
+    gradlePluginPortal()
+  }
+}
+
+dependencyResolutionManagement {
+  repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    google()
+    maven {
+      name 'jitpack.io'
+      url 'https://jitpack.io'
+    }
+  }
+  versionCatalogs {
+    testLibs {
+      from(files('gradle/test-libs.versions.toml'))
+    }
+  }
+}
 buildCache {
   local {
     directory = new File(rootDir, '.gradle/build-cache')

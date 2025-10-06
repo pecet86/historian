@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'maven-publish'
 
-apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
@@ -45,11 +44,12 @@ android {
 
 dependencies {
   api project(':historian-core')
-  api "com.jakewharton.timber:timber:${deps.timber}"
+
+  api libs.timber
 
   //noinspection AnnotationProcessorOnCompilePath
-  compileOnly "org.projectlombok:lombok:${deps.lombok}"
-  annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
+  compileOnly libs.lombok
+  annotationProcessor libs.lombok
 }
 
 apply from: "$rootDir/gradle/gradle-mvn-push.gradle"

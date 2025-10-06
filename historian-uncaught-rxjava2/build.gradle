@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'maven-publish'
 
-apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
@@ -48,15 +47,14 @@ dependencies {
   api project(':historian-core')
   api project(':historian-uncaught-handler')
 
-  implementation "androidx.annotation:annotation:${deps.annotation}"
+  implementation libs.androidx.annotation
 
   //RxJava
-  api "io.reactivex.rxjava2:rxjava:${deps.rxjava2}"
-  api "io.reactivex.rxjava2:rxandroid:${deps.rxandroid2}"
+  api libs.bundles.rxjava2
 
   //noinspection AnnotationProcessorOnCompilePath
-  compileOnly "org.projectlombok:lombok:${deps.lombok}"
-  annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
+  compileOnly libs.lombok
+  annotationProcessor libs.lombok
 }
 
 apply from: "$rootDir/gradle/gradle-mvn-push.gradle"

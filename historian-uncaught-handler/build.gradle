@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'com.github.ben-manes.versions'
 apply plugin: 'maven-publish'
 
-apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
@@ -52,21 +51,21 @@ android {
 }
 
 dependencies {
-  implementation "androidx.appcompat:appcompat:${deps.appcompat}"
-  implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-  implementation "com.google.android.material:material:${deps.material}"
+  implementation libs.androidx.appcompat
+  implementation libs.androidx.constraintlayout
+  implementation libs.android.material
 
   api project(':historian-core')
 
-  implementation "androidx.annotation:annotation:${deps.annotation}"
+  implementation libs.androidx.annotation
 
   //noinspection AnnotationProcessorOnCompilePath
-  compileOnly "org.projectlombok:lombok:${deps.lombok}"
-  annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
+  compileOnly libs.lombok
+  annotationProcessor libs.lombok
 
   //parceler
-  implementation "org.parceler:parceler-api:${deps.parceler}"
-  annotationProcessor "org.parceler:parceler:${deps.parceler}"
+  implementation libs.parceler.api
+  annotationProcessor libs.parceler.annotation
 }
 
 apply from: "$rootDir/gradle/gradle-mvn-push.gradle"

@@ -14,6 +14,7 @@ import net.yslibrary.historian.uncaught_handler.internal.ui.view_models.Uncaught
 
 import org.parceler.Parcels;
 
+import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
@@ -52,11 +53,14 @@ public class UncaughtActivity extends BaseActivity {
 
     initViewModels();
     initBinding();
-  }
 
-  @Override
-  public void onBackPressed() {
-    System.exit(0);
+    getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+      @Override
+      public void handleOnBackPressed() {
+        // Back is pressed... Finishing the activity
+        System.exit(0);
+      }
+    });
   }
 
   //<editor-fold desc="init & destroy">

@@ -1,0 +1,103 @@
+[versions]
+android-material = "1.13.0"
+androidx-appcompat = "1.7.1"
+androidx-constraintlayout = "2.2.1"
+androidx-annotation = "1.9.1"
+gradle-plugin-core = "8.13.0"
+gradle-plugin-versions = "0.52.0"
+grgit-plugin-core = "5.3.3"
+androidx-navigation = "2.9.5"
+androidx-lifecycle-extensions = "2.2.0"
+androidx-lifecycle = "2.9.4"
+androidx-recyclerview = "1.4.0"
+androidx-room = "2.8.1"
+
+lombok = "1.18.42"
+okio = "3.16.0"
+parceler = "1.1.13"
+
+rxjava2-rxandroid = "2.1.1"
+rxjava3-rxandroid = "3.0.2"
+rxjava2-rxjava = "2.2.21"
+rxjava3-rxjava = "3.1.12"
+rxjava3-preferences-bom = "2.0.1"
+timber = "5.0.1"
+
+[libraries]
+android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
+androidx-appcompat = { module = "androidx.appcompat:appcompat", version.ref = "androidx-appcompat" }
+androidx-constraintlayout = { module = "androidx.constraintlayout:constraintlayout", version.ref = "androidx-constraintlayout" }
+androidx-annotation = { module = "androidx.annotation:annotation", version.ref = "androidx-annotation" }
+androidx-lifecycle-extensions = { module = "androidx.lifecycle:lifecycle-extensions", version.ref = "androidx-lifecycle-extensions" }
+androidx-lifecycle-livedata = { module = "androidx.lifecycle:lifecycle-livedata", version.ref = "androidx-lifecycle" }
+androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
+androidx-navigation-fragment = { module = "androidx.navigation:navigation-fragment", version.ref = "androidx-navigation" }
+androidx-navigation-ui = { module = "androidx.navigation:navigation-ui", version.ref = "androidx-navigation" }
+androidx-recyclerview = { module = "androidx.recyclerview:recyclerview", version.ref = "androidx-recyclerview" }
+androidx-room-compiler = { module = "androidx.room:room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { module = "androidx.room:room-runtime", version.ref = "androidx-room" }
+androidx-room-rxjava2 = { module = "androidx.room:room-rxjava2", version.ref = "androidx-room" }
+androidx-room-rxjava3 = { module = "androidx.room:room-rxjava3", version.ref = "androidx-room" }
+
+gradle-plugin-core = { module = "com.android.tools.build:gradle", version.ref = "gradle-plugin-core" }
+gradle-plugin-versions = { module = "com.github.ben-manes:gradle-versions-plugin", version.ref = "gradle-plugin-versions" }
+grgit-plugin-core = { module = "org.ajoberstar.grgit:grgit-core", version.ref = "grgit-plugin-core" }
+gradle-plugin-navigation-safe-args = { module = "androidx.navigation:navigation-safe-args-gradle-plugin", version.ref = "androidx-navigation" }
+
+lombok = { module = "org.projectlombok:lombok", version.ref = "lombok" }
+okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
+parceler-api = { module = "org.parceler:parceler-api", version.ref = "parceler" }
+parceler-annotation = { module = "org.parceler:parceler", version.ref = "parceler" }
+timber = { module = "com.jakewharton.timber:timber", version.ref = "timber" }
+
+rxjava2-rxandroid = { module = "io.reactivex.rxjava2:rxandroid", version.ref = "rxjava2-rxandroid" }
+rxjava2-rxjava = { module = "io.reactivex.rxjava2:rxjava", version.ref = "rxjava2-rxjava" }
+rxjava3-rxandroid = { module = "io.reactivex.rxjava3:rxandroid", version.ref = "rxjava3-rxandroid" }
+rxjava3-rxjava = { module = "io.reactivex.rxjava3:rxjava", version.ref = "rxjava3-rxjava" }
+rxjava3-preferences-bom = { module = "com.frybits.rx.preferences:bom", version.ref = "rxjava3-preferences-bom" }
+rxjava3-preferences-core = { module = "com.frybits.rx.preferences:core" }
+rxjava3-preferences-livedata = { module = "com.frybits.rx.preferences:livedata" }
+rxjava3-preferences-rx3 = { module = "com.frybits.rx.preferences:rx3" }
+
+[plugins]
+
+[bundles]
+rxjava3-preferences = [
+    "rxjava3-preferences-core",
+    "rxjava3-preferences-livedata",
+    "rxjava3-preferences-rx3"
+]
+
+rxjava3 = [
+    "rxjava3-rxjava",
+    "rxjava3-rxandroid"
+]
+
+rxjava2 = [
+    "rxjava2-rxjava",
+    "rxjava2-rxandroid"
+]
+
+room = [
+    "androidx-room-runtime",
+    "androidx-room-rxjava2",
+    "androidx-room-rxjava3"
+]
+
+lifecycle = [
+    "androidx-lifecycle-extensions",
+    "androidx-lifecycle-livedata",
+    "androidx-lifecycle-viewmodel"
+]
+
+navigation = [
+    "androidx-navigation-fragment",
+    "androidx-navigation-ui"
+]
+
+ui = [
+    "androidx.recyclerview",
+    "androidx-constraintlayout",
+    "androidx-annotation",
+    "android-material"
+]

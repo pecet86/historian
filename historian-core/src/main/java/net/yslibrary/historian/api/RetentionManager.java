@@ -3,7 +3,7 @@ package net.yslibrary.historian.api;
 import android.content.Context;
 import android.util.Log;
 
-import com.f2prateek.rx.preferences2.RxSharedPreferences;
+import com.frybits.rx.preferences.core.RxSharedPreferences;
 
 import net.yslibrary.historian.internal.support.RepositoryProvider;
 
@@ -57,14 +57,14 @@ public class RetentionManager {
 
   private long getLastCleanup(long fallback) {
     if (lastCleanup == 0L) {
-      lastCleanup = preferences.getLong(KEY_LAST_CLEANUP, fallback).get();
+      lastCleanup = preferences.getLong(KEY_LAST_CLEANUP, fallback).getValue();
     }
     return lastCleanup;
   }
 
   private void updateLastCleanup(long time) {
     lastCleanup = time;
-    preferences.getLong(KEY_LAST_CLEANUP).set(time);
+    preferences.getLong(KEY_LAST_CLEANUP).setValue(time);
   }
 
   private long getThreshold(long now) {

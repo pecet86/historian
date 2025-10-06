@@ -7,7 +7,7 @@ buildscript {
     maven { url 'https://plugins.gradle.org/m2/' }
   }
   dependencies {
-    classpath 'androidx.navigation:navigation-safe-args-gradle-plugin:2.9.5'
+    classpath libs.gradle.plugin.navigation.safe.args
   }
 }
 
@@ -16,7 +16,6 @@ apply plugin: 'com.github.ben-manes.versions'
 apply plugin: "androidx.navigation.safeargs"
 apply plugin: 'maven-publish'
 
-apply from: "$rootDir/gradle/dependencies.gradle"
 apply from: "$rootDir/gradle/configuration.gradle"
 
 android {
@@ -79,45 +78,34 @@ android {
 }
 
 dependencies {
-  implementation 'androidx.recyclerview:recyclerview:1.4.0'
-  implementation 'androidx.constraintlayout:constraintlayout:2.2.1'
-  implementation 'com.squareup.okio:okio:3.16.0'
-  implementation "com.google.android.material:material:${deps.material}"
-  implementation "androidx.annotation:annotation:${deps.annotation}"
+  implementation libs.bundles.ui
+  implementation libs.okio
 
   //lifecycle
-  implementation "androidx.lifecycle:lifecycle-extensions:2.2.0"
-  implementation "androidx.lifecycle:lifecycle-viewmodel:${deps.lifecycle}"
-  implementation "androidx.lifecycle:lifecycle-livedata:${deps.lifecycle}"
+  implementation libs.bundles.room
 
   //navigation
-  implementation "androidx.navigation:navigation-fragment:${deps.navigation}"
-  implementation "androidx.navigation:navigation-ui:${deps.navigation}"
+  implementation libs.bundles.navigation
 
   //noinspection AnnotationProcessorOnCompilePath
-  compileOnly "org.projectlombok:lombok:${deps.lombok}"
-  annotationProcessor "org.projectlombok:lombok:${deps.lombok}"
+  compileOnly libs.lombok
+  annotationProcessor libs.lombok
 
   //android room
-  implementation "androidx.room:room-runtime:${deps.room}"
-  implementation "androidx.room:room-rxjava2:${deps.room}"
-  implementation "androidx.room:room-rxjava3:${deps.room}"
-  annotationProcessor "androidx.room:room-compiler:${deps.room}"
+  implementation libs.bundles.room
+  annotationProcessor libs.androidx.room.compiler
 
   //parceler
-  implementation "org.parceler:parceler-api:${deps.parceler}"
-  annotationProcessor "org.parceler:parceler:${deps.parceler}"
+  implementation libs.parceler.api
+  annotationProcessor libs.parceler.annotation
 
   //RxJava
-  implementation "io.reactivex.rxjava2:rxjava:${deps.rxjava2}"
-  implementation "io.reactivex.rxjava2:rxandroid:${deps.rxandroid2}"
-  implementation "io.reactivex.rxjava3:rxjava:${deps.rxjava3}"
-  implementation "io.reactivex.rxjava3:rxandroid:${deps.rxandroid3}"
-  implementation 'com.f2prateek.rx.preferences2:rx-preferences:2.0.1'
+  implementation libs.bundles.rxjava2
+  implementation libs.bundles.rxjava3
 
-  //navigation
-  implementation "androidx.navigation:navigation-fragment:${deps.navigation}"
-  implementation "androidx.navigation:navigation-ui:${deps.navigation}"
+  //RxPreferences
+  implementation platform(libs.rxjava3.preferences.bom)
+  implementation libs.bundles.rxjava3.preferences
 }
 
 apply from: "$rootDir/gradle/gradle-mvn-push.gradle"
