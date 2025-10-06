@@ -39,6 +39,7 @@ buildCache {
   }
 }
 
+include ':historian-bom'
 include ':historian-core'
 include ':historian-tree'
 include ':historian-uncaught-handler'

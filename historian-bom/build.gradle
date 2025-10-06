@@ -1,0 +1,75 @@
+plugins {
+  id("java-platform")
+  id("maven-publish")
+  id("signing")
+}
+
+group = GROUP
+version = versionName()
+
+description = "historian library BOM"
+
+dependencies {
+  constraints {
+    project.rootProject.subprojects.forEach { subproject ->
+      if (subproject.name != "sample" && subproject.name != "historian-bom") {
+        api subproject
+      }
+    }
+    /*api project(':historian-core')
+    api project(':historian-tree')
+    api project(':historian-uncaught-handler')
+    api project(':historian-uncaught-rxjava2')
+    api project(':historian-uncaught-rxjava3')*/
+  }
+}
+
+publishing {
+  publications {
+    release(MavenPublication) {
+      groupId = group
+      artifactId = project.name
+      version = version
+
+      pom {
+        name.set("Historian BoM SDK")
+        description.set("Bill of Materials (BoM) for my Historian Android libraries")
+        url.set("https://github.com/pecet86/historian")
+
+        licenses {
+          license {
+            name.set("The Apache License, Version 2.0")
+            url.set("http://www.apache.org/licenses/LICENSE-2.0.txt")
+          }
+        }
+
+        issueManagement {
+          system.set("GitHub Issues")
+          url.set("https://github.com/pecet86/historian/issues")
+        }
+
+        developers {
+          developer {
+            id.set("pecet86")
+            name.set("Paweł Cal")
+            //email.set("mail")
+          }
+        }
+
+        scm {
+          connection.set("scm:git:git://github.com/pecet86/historian.git")
+          developerConnection.set("scm:git:ssh://github.com/pecet86/historian.git")
+          url.set("https://github.com/pecet86/historian")
+        }
+      }
+
+      afterEvaluate {
+        from components.javaPlatform
+      }
+    }
+  }
+}
+
+signing {
+
+}

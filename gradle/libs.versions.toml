@@ -3,25 +3,26 @@ android-material = "1.13.0"
 androidx-appcompat = "1.7.1"
 androidx-constraintlayout = "2.2.1"
 androidx-annotation = "1.9.1"
-gradle-plugin-core = "8.13.0"
-gradle-plugin-versions = "0.52.0"
-grgit-plugin-core = "5.3.3"
 androidx-navigation = "2.9.5"
 androidx-lifecycle-extensions = "2.2.0"
 androidx-lifecycle = "2.9.4"
 androidx-recyclerview = "1.4.0"
 androidx-room = "2.8.1"
 
+gradle-plugin-core = "8.13.0"
+gradle-plugin-versions = "0.52.0"
+grgit-plugin-core = "5.3.3"
+
 lombok = "1.18.42"
 okio = "3.16.0"
 parceler = "1.1.13"
+timber = "5.0.1"
 
 rxjava2-rxandroid = "2.1.1"
 rxjava3-rxandroid = "3.0.2"
 rxjava2-rxjava = "2.2.21"
 rxjava3-rxjava = "3.1.12"
 rxjava3-preferences-bom = "2.0.1"
-timber = "5.0.1"
 
 [libraries]
 android-material = { module = "com.google.android.material:material", version.ref = "android-material" }
